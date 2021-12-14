@@ -48,35 +48,41 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btBack" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                          <Component id="dcHari" alignment="1" min="-2" pref="608" max="-2" attributes="0"/>
-                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="btSubmit" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="tfJamBerangkat" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="cbKereta" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="lbKereta" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbAsal" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tfAsal" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                                          <Component id="lbHari" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="lbJamBerangkat" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="lbTujuan" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="tfTujuan" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="lbHarga" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="spHarga" min="-2" pref="295" max="-2" attributes="0"/>
-                                      <Component id="lbJamTiba" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="tfJamTiba" alignment="0" min="-2" pref="295" max="-2" attributes="0"/>
-                                  </Group>
+                      <Component id="jComboBox1" alignment="0" min="-2" pref="608" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbJamBerangkat" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <Component id="dtBrkt" min="-2" pref="295" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="dtTiba" min="-2" pref="295" max="-2" attributes="0"/>
+                                  <Component id="lbJamTiba" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="cbAsal" min="-2" pref="295" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="cbTujuan" min="-2" pref="295" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="btSubmit" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
+                          <Component id="btBack" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="cbKereta" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lbKereta" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbAsal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbHari" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbTujuan" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lbHarga" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="spHarga" min="-2" pref="295" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -110,34 +116,33 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="lbAsal" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tfAsal" min="-2" pref="34" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cbAsal" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="cbTujuan" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="lbTujuan" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tfTujuan" min="-2" pref="34" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="lbHari" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="dcHari" min="-2" pref="34" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="lbJamBerangkat" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tfJamBerangkat" min="-2" pref="34" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="lbJamTiba" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tfJamTiba" min="-2" pref="34" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+                  <Component id="jComboBox1" min="-2" pref="34" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lbJamBerangkat" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbJamTiba" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="dtBrkt" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="dtTiba" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btSubmit" min="-2" pref="29" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -167,13 +172,14 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btBackActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btBackMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
         <Component class="javax.swing.JLabel" name="lbKereta">
           <Properties>
+            <Property name="text" type="java.lang.String" value="KERETA"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -183,29 +189,23 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="KERETA"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbKereta">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="1">
+                <StringItem index="0" value="============PILIH============"/>
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbKeretaItemStateChanged"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lbHarga">
           <Properties>
+            <Property name="text" type="java.lang.String" value="HARGA"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -215,13 +215,13 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="HARGA"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="spHarga">
         </Component>
         <Component class="javax.swing.JLabel" name="lbAsal">
           <Properties>
+            <Property name="text" type="java.lang.String" value="ASAL"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -231,21 +231,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ASAL"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfAsal">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Montserrat" size="12" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfAsalActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbTujuan">
           <Properties>
+            <Property name="text" type="java.lang.String" value="TUJUAN"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -255,21 +245,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="TUJUAN"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfTujuan">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Montserrat" size="12" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfTujuanActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbHari">
           <Properties>
+            <Property name="text" type="java.lang.String" value="HARI"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -279,13 +259,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="HARI"/>
           </Properties>
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="dcHari">
         </Component>
         <Component class="javax.swing.JLabel" name="lbJamBerangkat">
           <Properties>
+            <Property name="text" type="java.lang.String" value="JAM BERANGKAT"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -295,21 +273,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="JAM BERANGKAT"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfJamBerangkat">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Montserrat" size="12" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfJamBerangkatActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbJamTiba">
           <Properties>
+            <Property name="text" type="java.lang.String" value="JAM TIBA"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -319,21 +287,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="JAM TIBA"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfJamTiba">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Montserrat" size="12" style="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfJamTibaActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btSubmit">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Kirim"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -343,11 +301,64 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ee" green="ee" red="ee" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Kirim"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSubmitActionPerformed"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btSubmitMouseClicked"/>
           </Events>
+        </Component>
+        <Component class="com.github.lgooddatepicker.components.TimePicker" name="dtBrkt">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TimePicker(ts)"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="TimePickerSettings ts = new TimePickerSettings();&#xa;ts.use24HourClockFormat();&#xa;ts.generatePotentialMenuTimes(TimeIncrement.OneHour, null, null);"/>
+          </AuxValues>
+        </Component>
+        <Component class="com.github.lgooddatepicker.components.TimePicker" name="dtTiba">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new TimePicker(ts)"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbAsal">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="1">
+                <StringItem index="0" value="============PILIH============"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cbTujuan">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="1">
+                <StringItem index="0" value="============PILIH============"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBox1">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="8">
+                <StringItem index="0" value="============PILIH============"/>
+                <StringItem index="1" value="Senin"/>
+                <StringItem index="2" value="Selasa"/>
+                <StringItem index="3" value="Rabu"/>
+                <StringItem index="4" value="Kamis"/>
+                <StringItem index="5" value="Jumat"/>
+                <StringItem index="6" value="Sabtu"/>
+                <StringItem index="7" value="Minggu"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

@@ -1,6 +1,8 @@
 package tiketkeretaapi.jadwal;
 
-import java.awt.event.ItemEvent;
+import com.github.lgooddatepicker.components.TimePicker;
+import com.github.lgooddatepicker.components.TimePickerSettings;
+import com.github.lgooddatepicker.components.TimePickerSettings.TimeIncrement;
 import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.border.EmptyBorder;
 import tiketkeretaapi.Koneksi;
+import tiketkeretaapi.transaksi.frameInputTrk;
 
 /**
  *
@@ -21,19 +24,20 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
 	Koneksi koneksi = new Koneksi();
 	Statement cmd;
 	ResultSet res;
+	boolean anyError = false;
 
 	public frameInputJdw(JDesktopPane panel) {
 		initComponents();
 		mainPanel = panel;
 		((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		loadKereta();
-		String kodeK = "KRT-GHOK75";
-		for (int i = 0; i < cbKereta.getItemCount(); i++) {
-			if(cbKereta.getItemAt(i).substring(0, 10).equals(kodeK)) {
-				cbKereta.setSelectedIndex(i);
-			}
-		}
+
+//		String kodeK = "KRT-GHOK75";
+//		for (int i = 0; i < cbKereta.getItemCount(); i++) {
+//			if(cbKereta.getItemAt(i).substring(0, 10).equals(kodeK)) {
+//				cbKereta.setSelectedIndex(i);
+//			}
+//		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -48,16 +52,19 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
         lbHarga = new javax.swing.JLabel();
         spHarga = new javax.swing.JSpinner();
         lbAsal = new javax.swing.JLabel();
-        tfAsal = new javax.swing.JTextField();
         lbTujuan = new javax.swing.JLabel();
-        tfTujuan = new javax.swing.JTextField();
         lbHari = new javax.swing.JLabel();
-        dcHari = new com.toedter.calendar.JDateChooser();
         lbJamBerangkat = new javax.swing.JLabel();
-        tfJamBerangkat = new javax.swing.JTextField();
         lbJamTiba = new javax.swing.JLabel();
-        tfJamTiba = new javax.swing.JTextField();
         btSubmit = new javax.swing.JButton();
+        TimePickerSettings ts = new TimePickerSettings();
+        ts.use24HourClockFormat();
+        ts.generatePotentialMenuTimes(TimeIncrement.OneHour, null, null);
+        dtBrkt = new TimePicker(ts);
+        dtTiba = new TimePicker(ts);
+        cbAsal = new javax.swing.JComboBox<>();
+        cbTujuan = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setMinimumSize(new java.awt.Dimension(732, 402));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -90,91 +97,64 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
         btBack.setBorderPainted(false);
         btBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btBack.setPreferredSize(new java.awt.Dimension(103, 25));
-        btBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btBackActionPerformed(evt);
+        btBack.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btBackMouseClicked(evt);
             }
         });
 
+        lbKereta.setText("KERETA");
         lbKereta.setBackground(new java.awt.Color(57, 62, 70));
         lbKereta.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbKereta.setForeground(new java.awt.Color(57, 62, 70));
-        lbKereta.setText("KERETA");
 
-        cbKereta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbKereta.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbKeretaItemStateChanged(evt);
-            }
-        });
+        cbKereta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "============PILIH============" }));
 
+        lbHarga.setText("HARGA");
         lbHarga.setBackground(new java.awt.Color(57, 62, 70));
         lbHarga.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbHarga.setForeground(new java.awt.Color(57, 62, 70));
-        lbHarga.setText("HARGA");
 
+        lbAsal.setText("ASAL");
         lbAsal.setBackground(new java.awt.Color(57, 62, 70));
         lbAsal.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbAsal.setForeground(new java.awt.Color(57, 62, 70));
-        lbAsal.setText("ASAL");
 
-        tfAsal.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        tfAsal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfAsalActionPerformed(evt);
-            }
-        });
-
+        lbTujuan.setText("TUJUAN");
         lbTujuan.setBackground(new java.awt.Color(57, 62, 70));
         lbTujuan.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbTujuan.setForeground(new java.awt.Color(57, 62, 70));
-        lbTujuan.setText("TUJUAN");
 
-        tfTujuan.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        tfTujuan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfTujuanActionPerformed(evt);
-            }
-        });
-
+        lbHari.setText("HARI");
         lbHari.setBackground(new java.awt.Color(57, 62, 70));
         lbHari.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbHari.setForeground(new java.awt.Color(57, 62, 70));
-        lbHari.setText("HARI");
 
+        lbJamBerangkat.setText("JAM BERANGKAT");
         lbJamBerangkat.setBackground(new java.awt.Color(57, 62, 70));
         lbJamBerangkat.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbJamBerangkat.setForeground(new java.awt.Color(57, 62, 70));
-        lbJamBerangkat.setText("JAM BERANGKAT");
 
-        tfJamBerangkat.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        tfJamBerangkat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfJamBerangkatActionPerformed(evt);
-            }
-        });
-
+        lbJamTiba.setText("JAM TIBA");
         lbJamTiba.setBackground(new java.awt.Color(57, 62, 70));
         lbJamTiba.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbJamTiba.setForeground(new java.awt.Color(57, 62, 70));
-        lbJamTiba.setText("JAM TIBA");
 
-        tfJamTiba.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        tfJamTiba.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfJamTibaActionPerformed(evt);
-            }
-        });
-
+        btSubmit.setText("Kirim");
         btSubmit.setBackground(new java.awt.Color(57, 62, 70));
         btSubmit.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         btSubmit.setForeground(new java.awt.Color(238, 238, 238));
-        btSubmit.setText("Kirim");
-        btSubmit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btSubmitActionPerformed(evt);
+        btSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btSubmitMouseClicked(evt);
             }
         });
+
+        cbAsal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "============PILIH============" }));
+
+        cbTujuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "============PILIH============" }));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "============PILIH============", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -184,29 +164,33 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(dcHari, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(tfJamBerangkat, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cbKereta, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lbKereta, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lbAsal, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(tfAsal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lbHari, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addComponent(lbJamBerangkat))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lbTujuan)
-                                    .addComponent(tfTujuan)
-                                    .addComponent(lbHarga)
-                                    .addComponent(spHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbJamTiba)
-                                    .addComponent(tfJamTiba, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbJamBerangkat, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dtBrkt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(dtTiba, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbJamTiba)))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(cbAsal, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(cbTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(cbKereta, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbKereta, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbAsal, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbHari, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbTujuan)
+                                .addComponent(lbHarga)
+                                .addComponent(spHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(82, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -231,28 +215,27 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbAsal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfAsal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbAsal, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbTujuan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGap(58, 58, 58)))
                 .addComponent(lbHari)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dcHari, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbJamBerangkat)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfJamBerangkat, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lbJamTiba)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfJamTiba, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbJamBerangkat)
+                    .addComponent(lbJamTiba))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dtBrkt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtTiba, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 450));
@@ -260,7 +243,12 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+		setKereta();
+		setLokasi();
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void btBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btBackMouseClicked
 		try {
 			frameDataJdw dataJadwal = new frameDataJdw(mainPanel);
 			this.dispose();
@@ -270,61 +258,66 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
 		} catch (PropertyVetoException ex) {
 			Logger.getLogger(frameInputJdw.class.getName()).log(Level.SEVERE, null, ex);
 		}
-    }//GEN-LAST:event_btBackActionPerformed
+    }//GEN-LAST:event_btBackMouseClicked
 
-    private void btSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSubmitActionPerformed
-		// TODO add your handling code here:
-    }//GEN-LAST:event_btSubmitActionPerformed
+    private void btSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSubmitMouseClicked
+		String kereta = cbKereta.getSelectedItem().toString();
+		String asal = cbAsal.getSelectedItem().toString();
+		String tujuan = cbTujuan.getSelectedItem().toString();
+		int harga = (int) spHarga.getValue();
 
-    private void tfAsalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfAsalActionPerformed
-		// TODO add your handling code here:
-    }//GEN-LAST:event_tfAsalActionPerformed
+		kereta = extractKode(kereta, 10);
+		asal = extractKode(asal, 3);
+		tujuan = extractKode(tujuan, 3);
 
-    private void tfTujuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTujuanActionPerformed
-		// TODO add your handling code here:
-    }//GEN-LAST:event_tfTujuanActionPerformed
+		System.out.println(kereta);
+		System.out.println(asal);
+		System.out.println(tujuan);
+    }//GEN-LAST:event_btSubmitMouseClicked
 
-    private void tfJamBerangkatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfJamBerangkatActionPerformed
-		// TODO add your handling code here:
-    }//GEN-LAST:event_tfJamBerangkatActionPerformed
+	private String extractKode(String text, int length) {
+		text = text.substring(text.length() - (length + 1)).substring(0, length);
+		return text;
+	}
 
-    private void tfJamTibaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfJamTibaActionPerformed
-		// TODO add your handling code here:
-    }//GEN-LAST:event_tfJamTibaActionPerformed
-
-    private void cbKeretaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbKeretaItemStateChanged
-		if (evt.getStateChange() == ItemEvent.SELECTED && cbKereta.getSelectedIndex() != 0) {
-			String kode = cbKereta.getSelectedItem().toString();
-			kode = kode.substring(0, 10);
-			System.out.println(kode);
-		}
-    }//GEN-LAST:event_cbKeretaItemStateChanged
-
-    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formInternalFrameOpened
-
-	private void loadKereta() {
-		cbKereta.removeAllItems();
-		cbKereta.addItem("============PILIH============");
+	private void setKereta() {
 		try {
 			cmd = koneksi.conn.createStatement();
 			res = cmd.executeQuery("SELECT KODE_KERETA, NAMA_KERETA FROM KERETA");
 			while (res.next()) {
 				String kode = res.getString("KODE_KERETA");
 				String nama = res.getString("NAMA_KERETA");
-				cbKereta.addItem(kode + " - " + nama);
+				cbKereta.addItem(nama + " (" + kode + ")");
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(frameInputJdw.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
+	private void setLokasi() {
+		try {
+			cmd = koneksi.conn.createStatement();
+			res = cmd.executeQuery("SELECT * FROM LOKASI");
+			while (res.next()) {
+				String kode = res.getString("KODE");
+				String nama = res.getString("NAMA");
+				cbAsal.addItem(nama + " (" + kode + ")");
+				cbTujuan.addItem(nama + " (" + kode + ")");
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(frameInputTrk.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBack;
     private javax.swing.JButton btSubmit;
+    private javax.swing.JComboBox<String> cbAsal;
     private javax.swing.JComboBox<String> cbKereta;
-    private com.toedter.calendar.JDateChooser dcHari;
+    private javax.swing.JComboBox<String> cbTujuan;
+    private com.github.lgooddatepicker.components.TimePicker dtBrkt;
+    private com.github.lgooddatepicker.components.TimePicker dtTiba;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbAsal;
@@ -335,9 +328,5 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbKereta;
     private javax.swing.JLabel lbTujuan;
     private javax.swing.JSpinner spHarga;
-    private javax.swing.JTextField tfAsal;
-    private javax.swing.JTextField tfJamBerangkat;
-    private javax.swing.JTextField tfJamTiba;
-    private javax.swing.JTextField tfTujuan;
     // End of variables declaration//GEN-END:variables
 }
