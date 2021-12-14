@@ -2,12 +2,14 @@ package tiketkeretaapi.jadwal;
 
 import java.beans.PropertyVetoException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import tiketkeretaapi.CurrencyID;
 import tiketkeretaapi.Koneksi;
 
 /**
@@ -75,10 +77,10 @@ public class frameDataJdw extends javax.swing.JInternalFrame {
 
         tbJadwal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "JDW-DI2XOD", "Bima", "Surabaya", "Malang", "15:35", "18:10", "Senin"}
+                { new Integer(1), "JDW-DI2XOD", "Bima", "Surabaya", "Malang", "Senin", "15:35", "18:10"}
             },
             new String [] {
-                "NO", "KODE JADWAL", "NAMA KERETA", "ASAL", "TUJUAN", "JAM BERANGKAT", "JAM TIBA", "HARI"
+                "NO", "KODE", "KERETA", "ASAL", "TUJUAN", "HARI", "JAM BERANGKAT", "JAM TIBA"
             }
         ) {
             Class[] types = new Class [] {
@@ -150,20 +152,20 @@ public class frameDataJdw extends javax.swing.JInternalFrame {
     private void tbJadwalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbJadwalMouseClicked
 		int index = tbJadwal.rowAtPoint(evt.getPoint());
 		int columnCount = tbJadwal.getColumnCount();
-		Object[] selectedRow = new Object[columnCount];
+		ArrayList selectedRow = new ArrayList();
 		if (evt.getClickCount() == 2) {
-			for (int i = 0; i < columnCount; i++) {
-				selectedRow[i] = tbJadwal.getValueAt(index, i);
+			for (int i = 1; i < columnCount; i++) {
+				selectedRow.add(tbJadwal.getValueAt(index, i));
 			}
 		}
     }//GEN-LAST:event_tbJadwalMouseClicked
 
 	private void getDataJadwal() {
 		String kode, nama, asal, tujuan, jam_brkt, jam_tiba, hari;
-		int i = 0;
+		int i = 0, harga;
 		try {
 
-			String[] columsName = {"NO", "KODE JADWAL", "NAMA KERETA", "ASAL", "TUJUAN", "JAM BERANGKAT", "JAM TIBA", "HARI"};
+			String[] columsName = {"NO", "KODE", "KERETA", "HARGA", "ASAL", "TUJUAN", "HARI", "JAM BERANGKAT", "JAM TIBA"};
 			tmJadwal = new DefaultTableModel(columsName, 0) {
 				@Override
 				public boolean isCellEditable(int row, int column) {
@@ -173,18 +175,19 @@ public class frameDataJdw extends javax.swing.JInternalFrame {
 			};
 
 			cmd = koneksi.conn.createStatement();
-			res = cmd.executeQuery("SELECT j.KODE_JADWAL, k.nama_kereta, j.ASAL, j.TUJUAN, j.JAM_BERANGKAT, j.JAM_TIBA, GET_HARI(j.HARI) AS HARI FROM JADWAL j INNER JOIN KERETA k ON j.KODE_KERETA = k.KODE_KERETA");
+			res = cmd.executeQuery("SELECT j.KODE_JADWAL AS KODE, k.nama_kereta AS KERETA, j.HARGA,	l.NAMA AS ASAL,	l2.NAMA AS TUJUAN, GET_HARI(j.HARI) AS HARI, j.JAM_BERANGKAT, j.JAM_TIBA FROM JADWAL j INNER JOIN KERETA k ON j.KODE_KERETA = k.KODE_KERETA INNER JOIN LOKASI l ON j.KODE_ASAL = l.KODE INNER JOIN LOKASI l2 ON j.KODE_TUJUAN = l2.KODE");
 
 			while (res.next()) {
 				i++;
-				kode = res.getString("KODE_JADWAL");
-				nama = res.getString("NAMA_KERETA");
+				kode = res.getString("KODE");
+				nama = res.getString("KERETA");
+				harga = res.getInt("HARGA");
 				asal = res.getString("ASAL");
 				tujuan = res.getString("TUJUAN");
+				hari = res.getString("HARI");
 				jam_brkt = res.getString("JAM_BERANGKAT");
 				jam_tiba = res.getString("JAM_TIBA");
-				hari = res.getString("HARI");
-				Object[] data = {i, kode, nama, asal, tujuan, jam_brkt, jam_tiba, hari};
+				Object[] data = {i, kode, nama, new CurrencyID(harga), asal, tujuan, hari, jam_brkt, jam_tiba};
 				tmJadwal.addRow(data);
 			}
 			tbJadwal.setModel(tmJadwal);

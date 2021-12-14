@@ -106,10 +106,10 @@
                     <Column editable="true" title="NO" type="java.lang.Integer">
                       <Data value="1"/>
                     </Column>
-                    <Column editable="true" title="KODE JADWAL" type="java.lang.String">
+                    <Column editable="true" title="KODE" type="java.lang.String">
                       <Data value="JDW-DI2XOD"/>
                     </Column>
-                    <Column editable="true" title="NAMA KERETA" type="java.lang.String">
+                    <Column editable="true" title="KERETA" type="java.lang.String">
                       <Data value="Bima"/>
                     </Column>
                     <Column editable="true" title="ASAL" type="java.lang.String">
@@ -118,14 +118,14 @@
                     <Column editable="true" title="TUJUAN" type="java.lang.String">
                       <Data value="Malang"/>
                     </Column>
+                    <Column editable="true" title="HARI" type="java.lang.String">
+                      <Data value="Senin"/>
+                    </Column>
                     <Column editable="true" title="JAM BERANGKAT" type="java.lang.String">
                       <Data value="15:35"/>
                     </Column>
                     <Column editable="true" title="JAM TIBA" type="java.lang.String">
                       <Data value="18:10"/>
-                    </Column>
-                    <Column editable="true" title="HARI" type="java.lang.String">
-                      <Data value="Senin"/>
                     </Column>
                   </Table>
                 </Property>
