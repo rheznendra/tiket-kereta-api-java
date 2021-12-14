@@ -7,9 +7,13 @@ import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import tiketkeretaapi.Koneksi;
 import tiketkeretaapi.transaksi.frameInputTrk;
@@ -60,11 +64,11 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
         TimePickerSettings ts = new TimePickerSettings();
         ts.use24HourClockFormat();
         ts.generatePotentialMenuTimes(TimeIncrement.OneHour, null, null);
-        dtBrkt = new TimePicker(ts);
-        dtTiba = new TimePicker(ts);
+        tpBrkt = new TimePicker(ts);
+        tpTiba = new TimePicker(ts);
         cbAsal = new javax.swing.JComboBox<>();
         cbTujuan = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbHari = new javax.swing.JComboBox<>();
 
         setMinimumSize(new java.awt.Dimension(732, 402));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -109,11 +113,14 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
         lbKereta.setForeground(new java.awt.Color(57, 62, 70));
 
         cbKereta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "============PILIH============" }));
+        cbKereta.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         lbHarga.setText("HARGA");
         lbHarga.setBackground(new java.awt.Color(57, 62, 70));
         lbHarga.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbHarga.setForeground(new java.awt.Color(57, 62, 70));
+
+        spHarga.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         lbAsal.setText("ASAL");
         lbAsal.setBackground(new java.awt.Color(57, 62, 70));
@@ -150,11 +157,18 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
             }
         });
 
+        tpBrkt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+
+        tpTiba.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+
         cbAsal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "============PILIH============" }));
+        cbAsal.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         cbTujuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "============PILIH============" }));
+        cbTujuan.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "============PILIH============", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu" }));
+        cbHari.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "============PILIH============", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu" }));
+        cbHari.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,15 +178,15 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbHari, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lbJamBerangkat, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dtBrkt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tpBrkt, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(dtTiba, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tpTiba, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lbJamTiba)))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(cbAsal, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,15 +238,15 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
                         .addGap(58, 58, 58)))
                 .addComponent(lbHari)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbHari, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbJamBerangkat)
                     .addComponent(lbJamTiba))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dtBrkt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dtTiba, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tpBrkt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tpTiba, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -261,19 +275,136 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btBackMouseClicked
 
     private void btSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSubmitMouseClicked
-		String kereta = cbKereta.getSelectedItem().toString();
-		String asal = cbAsal.getSelectedItem().toString();
-		String tujuan = cbTujuan.getSelectedItem().toString();
-		int harga = (int) spHarga.getValue();
+		anyError = false;
 
-		kereta = extractKode(kereta, 10);
-		asal = extractKode(asal, 3);
-		tujuan = extractKode(tujuan, 3);
+		checkEmptyInput();
+
+		String kereta = null, asal = null, tujuan = null, brkt = null, tiba = null;
+		int harga = 0, hari = 0;
+
+		if (!anyError) {
+			asal = cbAsal.getSelectedItem().toString();
+			asal = extractKode(asal, 3);
+
+			tujuan = cbTujuan.getSelectedItem().toString();
+			tujuan = extractKode(tujuan, 3);
+
+			checkAsalTujuan(asal, tujuan);
+		}
+//
+		if (!anyError) {
+			brkt = tpBrkt.getTime().toString();
+			tiba = tpTiba.getTime().toString();
+			checkFormatJam(brkt, tiba);
+		}
+
+		if (!anyError) {
+			checkBrktTiba(brkt, tiba);
+		}
+
+		if (!anyError) {
+
+			kereta = cbKereta.getSelectedItem().toString();
+			kereta = extractKode(kereta, 10);
+
+			harga = (int) spHarga.getValue();
+			hari = cbHari.getSelectedIndex() + 1;
+		}
 
 		System.out.println(kereta);
+		System.out.println(harga);
 		System.out.println(asal);
 		System.out.println(tujuan);
+		System.out.println(hari);
+		System.out.println(brkt);
+		System.out.println(tiba);
     }//GEN-LAST:event_btSubmitMouseClicked
+
+	private void checkBrktTiba(String brkt, String tiba) {
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			Date jamBrkt = sdf.parse(brkt);
+			Date jamTiba = sdf.parse(tiba);
+			if (jamTiba.before(jamBrkt)) {
+				showAlert("Jam tiba harus melewati jam berangkat.", "err");
+				anyError = true;
+			}
+		} catch (ParseException ex) {
+			Logger.getLogger(frameInputJdw.class.getName()).log(Level.SEVERE, null, ex);
+			showAlert("Terjadi kesalahan.", "err");
+			anyError = true;
+		}
+	}
+
+	private void checkFormatJam(String brkt, String tiba) {
+		String pattern = "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$";
+		if (!brkt.matches(pattern)) {
+			showAlert("Format waktu tidak valid.", "err");
+			anyError = true;
+		}
+
+		if (!anyError && !tiba.matches(pattern)) {
+			showAlert("Format waktu tidak valid.", "err");
+			anyError = true;
+		}
+	}
+
+	private void checkAsalTujuan(String asal, String tujuan) {
+		if (asal.equals(tujuan)) {
+			showAlert("Asal dan Tujuan tidak boleh sama.", "err");
+			anyError = true;
+		}
+	}
+
+	private void checkEmptyInput() {
+		if (cbKereta.getSelectedIndex() == 0) {
+			showAlert("Silahkan pilih kereta.", "err");
+			anyError = true;
+		}
+
+		if (!anyError && (int) spHarga.getValue() <= 0) {
+			showAlert("Silahkan masukkan harga.", "err");
+			anyError = true;
+		}
+
+		if (!anyError && cbAsal.getSelectedIndex() == 0) {
+			showAlert("Silahkan pilih Asal.", "err");
+			anyError = true;
+		}
+
+		if (!anyError && cbTujuan.getSelectedIndex() == 0) {
+			showAlert("Silahkan pilih Tujuan.", "err");
+			anyError = true;
+		}
+
+		if (!anyError && cbHari.getSelectedIndex() == 0) {
+			showAlert("Silahkan pilih Hari.", "err");
+			anyError = true;
+		}
+
+		if (!anyError && tpBrkt.getTime() == null) {
+			showAlert("Silahkan pilih Jam Berangkat.", "err");
+			anyError = true;
+		}
+
+		if (!anyError && tpTiba.getTime() == null) {
+			showAlert("Silahkan pilih Jam Tiba.", "err");
+			anyError = true;
+		}
+	}
+
+	private void showAlert(String msg, String type) {
+		String title = "";
+		int tp = 0;
+		if (type.equals("inf")) {
+			tp = JOptionPane.INFORMATION_MESSAGE;
+			title = "Sukses!";
+		} else if (type.equals("err")) {
+			tp = JOptionPane.ERROR_MESSAGE;
+			title = "Error!";
+		}
+		JOptionPane.showMessageDialog(null, msg, title, tp);
+	}
 
 	private String extractKode(String text, int length) {
 		text = text.substring(text.length() - (length + 1)).substring(0, length);
@@ -313,11 +444,9 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
     private javax.swing.JButton btBack;
     private javax.swing.JButton btSubmit;
     private javax.swing.JComboBox<String> cbAsal;
+    private javax.swing.JComboBox<String> cbHari;
     private javax.swing.JComboBox<String> cbKereta;
     private javax.swing.JComboBox<String> cbTujuan;
-    private com.github.lgooddatepicker.components.TimePicker dtBrkt;
-    private com.github.lgooddatepicker.components.TimePicker dtTiba;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lbAsal;
@@ -328,5 +457,7 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbKereta;
     private javax.swing.JLabel lbTujuan;
     private javax.swing.JSpinner spHarga;
+    private com.github.lgooddatepicker.components.TimePicker tpBrkt;
+    private com.github.lgooddatepicker.components.TimePicker tpTiba;
     // End of variables declaration//GEN-END:variables
 }

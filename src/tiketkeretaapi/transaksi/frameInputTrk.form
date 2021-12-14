@@ -143,6 +143,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbAsal">
           <Properties>
+            <Property name="text" type="java.lang.String" value="ASAL"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -152,11 +153,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ASAL"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbKereta">
           <Properties>
+            <Property name="text" type="java.lang.String" value="KERETA"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -166,7 +167,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="KERETA"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btNext">
@@ -223,6 +223,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbTujuan">
           <Properties>
+            <Property name="text" type="java.lang.String" value="TUJUAN"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -232,11 +233,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="TUJUAN"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbHari">
           <Properties>
+            <Property name="text" type="java.lang.String" value="HARI"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -246,7 +247,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="TANGGAL"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbTujuan">
@@ -329,6 +329,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbJmlPenumpang">
           <Properties>
+            <Property name="text" type="java.lang.String" value="JUMLAH PENUMPANG"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -338,7 +339,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="JUMLAH PENUMPANG"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfHarga">
@@ -349,6 +349,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbHarga">
           <Properties>
+            <Property name="text" type="java.lang.String" value="HARGA"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
@@ -358,7 +359,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="3e" red="39" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="HARGA"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator2">

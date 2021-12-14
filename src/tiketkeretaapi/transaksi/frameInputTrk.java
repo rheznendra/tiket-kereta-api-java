@@ -91,15 +91,15 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setMaximumSize(jPanel1.getPreferredSize());
 
+        lbAsal.setText("ASAL");
         lbAsal.setBackground(new java.awt.Color(57, 62, 70));
         lbAsal.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbAsal.setForeground(new java.awt.Color(57, 62, 70));
-        lbAsal.setText("ASAL");
 
+        lbKereta.setText("KERETA");
         lbKereta.setBackground(new java.awt.Color(57, 62, 70));
         lbKereta.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbKereta.setForeground(new java.awt.Color(57, 62, 70));
-        lbKereta.setText("KERETA");
 
         btNext.setBackground(new java.awt.Color(57, 62, 70));
         btNext.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
@@ -127,15 +127,15 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
             }
         });
 
+        lbTujuan.setText("TUJUAN");
         lbTujuan.setBackground(new java.awt.Color(57, 62, 70));
         lbTujuan.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbTujuan.setForeground(new java.awt.Color(57, 62, 70));
-        lbTujuan.setText("TUJUAN");
 
+        lbHari.setText("HARI");
         lbHari.setBackground(new java.awt.Color(57, 62, 70));
         lbHari.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbHari.setForeground(new java.awt.Color(57, 62, 70));
-        lbHari.setText("TANGGAL");
 
         cbTujuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "------------------PILIH------------------" }));
         cbTujuan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -173,18 +173,18 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
             }
         });
 
+        lbJmlPenumpang.setText("JUMLAH PENUMPANG");
         lbJmlPenumpang.setBackground(new java.awt.Color(57, 62, 70));
         lbJmlPenumpang.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbJmlPenumpang.setForeground(new java.awt.Color(57, 62, 70));
-        lbJmlPenumpang.setText("JUMLAH PENUMPANG");
 
         tfHarga.setText("Rp. 0/orang");
         tfHarga.setEnabled(false);
 
+        lbHarga.setText("HARGA");
         lbHarga.setBackground(new java.awt.Color(57, 62, 70));
         lbHarga.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbHarga.setForeground(new java.awt.Color(57, 62, 70));
-        lbHarga.setText("HARGA");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
