@@ -4,9 +4,7 @@ import com.github.lgooddatepicker.components.TimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 import com.github.lgooddatepicker.components.TimePickerSettings.TimeIncrement;
 import java.beans.PropertyVetoException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +24,7 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
 
 	JDesktopPane mainPanel;
 	Koneksi koneksi = new Koneksi();
+	CallableStatement call;
 	Statement cmd;
 	ResultSet res;
 	boolean anyError = false;
@@ -276,6 +275,7 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
 
     private void btSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSubmitMouseClicked
 		anyError = false;
+		toggleInput(false);
 
 		checkEmptyInput();
 
@@ -291,7 +291,7 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
 
 			checkAsalTujuan(asal, tujuan);
 		}
-//
+
 		if (!anyError) {
 			brkt = tpBrkt.getTime().toString();
 			tiba = tpTiba.getTime().toString();
@@ -309,16 +309,50 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
 
 			harga = (int) spHarga.getValue();
 			hari = cbHari.getSelectedIndex() + 1;
+			insertData(kereta, harga, asal, tujuan, hari, brkt, tiba);
+			resetForm();
 		}
-
-		System.out.println(kereta);
-		System.out.println(harga);
-		System.out.println(asal);
-		System.out.println(tujuan);
-		System.out.println(hari);
-		System.out.println(brkt);
-		System.out.println(tiba);
+		toggleInput(true);
     }//GEN-LAST:event_btSubmitMouseClicked
+
+	private void resetForm() {
+		cbKereta.setSelectedIndex(0);
+		spHarga.setValue(0);
+		cbAsal.setSelectedIndex(0);
+		cbTujuan.setSelectedIndex(0);
+		cbHari.setSelectedIndex(0);
+		tpBrkt.setText("");
+		tpTiba.setText("");
+	}
+
+	private void toggleInput(boolean status) {
+		cbKereta.setEnabled(status);
+		spHarga.setEnabled(status);
+		cbAsal.setEnabled(status);
+		cbTujuan.setEnabled(status);
+		cbHari.setEnabled(status);
+		tpBrkt.setEnabled(status);
+		tpTiba.setEnabled(status);
+		btSubmit.setEnabled(status);
+	}
+
+	private void insertData(String kereta, int harga, String asal, String tujuan, int hari, String brkt, String tiba) {
+		try {
+			call = koneksi.conn.prepareCall("{CALL INS_JADWAL(?, ?, ?, ?, ?, ?, ?)}");
+			call.setString(1, kereta);
+			call.setInt(2, harga);
+			call.setString(3, asal);
+			call.setString(4, tujuan);
+			call.setInt(5, hari);
+			call.setString(6, brkt);
+			call.setString(7, tiba);
+			call.execute();
+			showAlert("Data berhasil ditambahkan", "inf");
+		} catch (SQLException ex) {
+			Logger.getLogger(frameInputJdw.class.getName()).log(Level.SEVERE, null, ex);
+			showAlert("Data gagal ditambahkan.", "err");
+		}
+	}
 
 	private void checkBrktTiba(String brkt, String tiba) {
 		try {
@@ -460,4 +494,5 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
     private com.github.lgooddatepicker.components.TimePicker tpBrkt;
     private com.github.lgooddatepicker.components.TimePicker tpTiba;
     // End of variables declaration//GEN-END:variables
+
 }
