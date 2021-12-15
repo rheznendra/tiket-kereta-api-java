@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import tiketkeretaapi.CurrencyID;
 import tiketkeretaapi.Koneksi;
+import tiketkeretaapi.karyawan.frameDataKry;
 
 /**
  *
@@ -77,21 +78,27 @@ public class frameDataJdw extends javax.swing.JInternalFrame {
 
         tbJadwal.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "JDW-DI2XOD", "Bima", "Surabaya", "Malang", "Senin", "15:35", "18:10"}
+
             },
             new String [] {
-                "NO", "KODE", "KERETA", "ASAL", "TUJUAN", "HARI", "JAM BERANGKAT", "JAM TIBA"
+                "NO", "KODE", "KERETA", "HARGA", "ASAL", "TUJUAN", "HARI", "JAM BERANGKAT", "JAM TIBA"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
-        tbJadwal.setPreferredSize(new java.awt.Dimension(300, 40));
         tbJadwal.getTableHeader().setReorderingAllowed(false);
         tbJadwal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -101,7 +108,9 @@ public class frameDataJdw extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tbJadwal);
         if (tbJadwal.getColumnModel().getColumnCount() > 0) {
             tbJadwal.getColumnModel().getColumn(0).setResizable(false);
+            tbJadwal.getColumnModel().getColumn(0).setPreferredWidth(50);
             tbJadwal.getColumnModel().getColumn(1).setResizable(false);
+            tbJadwal.getColumnModel().getColumn(1).setPreferredWidth(50);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -111,12 +120,9 @@ public class frameDataJdw extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAddData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(526, 526, 526))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 638, Short.MAX_VALUE)
-                        .addGap(50, 50, 50))))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,7 +145,7 @@ public class frameDataJdw extends javax.swing.JInternalFrame {
 
     private void btnAddDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddDataActionPerformed
 		try {
-			frameInputJdw addJadwal = new frameInputJdw(mainPanel);
+			frameInputJdw addJadwal = new frameInputJdw(mainPanel, null);
 			this.dispose();
 			mainPanel.add(addJadwal);
 			addJadwal.setVisible(true);
@@ -150,14 +156,23 @@ public class frameDataJdw extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAddDataActionPerformed
 
     private void tbJadwalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbJadwalMouseClicked
-		int index = tbJadwal.rowAtPoint(evt.getPoint());
-		int columnCount = tbJadwal.getColumnCount();
-		ArrayList selectedRow = new ArrayList();
-		if (evt.getClickCount() == 2) {
-			for (int i = 1; i < columnCount; i++) {
-				selectedRow.add(tbJadwal.getValueAt(index, i));
-			}
-		}
+        int index = tbJadwal.rowAtPoint(evt.getPoint());
+        int columnCount = tbJadwal.getColumnCount();
+        ArrayList selectedRow = new ArrayList();
+        if (evt.getClickCount() == 2) {
+            for (int i = 1; i < columnCount; i++) {
+                selectedRow.add(tbJadwal.getValueAt(index, i));
+            }
+            try {
+                frameInputJdw inputJdw = new frameInputJdw(mainPanel, selectedRow);
+                this.dispose();
+                mainPanel.add(inputJdw);
+                inputJdw.setVisible(true);
+                inputJdw.setMaximum(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(frameDataKry.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_tbJadwalMouseClicked
 
 	private void getDataJadwal() {
@@ -173,6 +188,7 @@ public class frameDataJdw extends javax.swing.JInternalFrame {
 				}
 
 			};
+			tmJadwal.setRowCount(0);
 
 			cmd = koneksi.conn.createStatement();
 			res = cmd.executeQuery("SELECT j.KODE_JADWAL AS KODE, k.nama_kereta AS KERETA, j.HARGA,	l.NAMA AS ASAL,	l2.NAMA AS TUJUAN, GET_HARI(j.HARI) AS HARI, j.JAM_BERANGKAT, j.JAM_TIBA FROM JADWAL j INNER JOIN KERETA k ON j.KODE_KERETA = k.KODE_KERETA INNER JOIN LOKASI l ON j.KODE_ASAL = l.KODE INNER JOIN LOKASI l2 ON j.KODE_TUJUAN = l2.KODE");

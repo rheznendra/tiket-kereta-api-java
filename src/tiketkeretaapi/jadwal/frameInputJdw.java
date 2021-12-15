@@ -7,9 +7,11 @@ import java.beans.PropertyVetoException;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
@@ -26,12 +28,21 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
 	Koneksi koneksi = new Koneksi();
 	CallableStatement call;
 	Statement cmd;
+	Integer rs;
 	ResultSet res;
 	boolean anyError = false;
 
-	public frameInputJdw(JDesktopPane panel) {
+	ArrayList dataJdw;
+
+	public frameInputJdw(JDesktopPane panel, ArrayList data) {
 		initComponents();
 		mainPanel = panel;
+		dataJdw = data;
+		if (data != null) {
+			btSubmit.setText("Ubah");
+		} else {
+			btDelete.setVisible(false);
+		}
 		((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 
@@ -68,6 +79,7 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
         cbAsal = new javax.swing.JComboBox<>();
         cbTujuan = new javax.swing.JComboBox<>();
         cbHari = new javax.swing.JComboBox<>();
+        btDelete = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(732, 402));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
@@ -169,6 +181,16 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
         cbHari.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "============PILIH============", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu" }));
         cbHari.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
+        btDelete.setBackground(new java.awt.Color(57, 62, 70));
+        btDelete.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        btDelete.setForeground(new java.awt.Color(238, 238, 238));
+        btDelete.setText("Hapus");
+        btDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btDeleteMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -191,7 +213,10 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
                             .addComponent(cbAsal, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(cbTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -247,7 +272,9 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
                     .addComponent(tpBrkt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tpTiba, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -259,7 +286,52 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
 		setKereta();
 		setLokasi();
+
+		if (dataJdw != null) {
+			try {
+				String kode = dataJdw.get(0).toString();
+				cmd = koneksi.conn.createStatement();
+				res = cmd.executeQuery("SELECT * FROM JADWAL WHERE KODE_JADWAL = '" + kode + "'");
+				if (res.next()) {
+					String kereta = res.getString("KODE_KERETA");
+					int harga = res.getInt("HARGA");
+					String asal = res.getString("KODE_ASAL");
+					String tujuan = res.getString("KODE_TUJUAN");
+					int hari = res.getInt("HARI");
+					String brkt = res.getString("JAM_BERANGKAT");
+					String tiba = res.getString("JAM_TIBA");
+
+					setCbxValue(cbKereta, kereta, 10);
+					spHarga.setValue(harga);
+					setCbxValue(cbAsal, asal, 3);
+					setCbxValue(cbTujuan, tujuan, 3);
+					setCbxValue(cbHari, hari);
+					tpBrkt.setText(brkt);
+					tpTiba.setText(tiba);
+				}
+			} catch (SQLException ex) {
+				Logger.getLogger(frameInputJdw.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
     }//GEN-LAST:event_formInternalFrameOpened
+
+	private void setCbxValue(JComboBox jcb, int hari) {
+		for (int i = 0; i < jcb.getItemCount(); i++) {
+			if (i == hari) {
+				jcb.setSelectedIndex(i);
+				break;
+			}
+		}
+	}
+
+	private void setCbxValue(JComboBox jcb, String kode, int length) {
+		for (int i = 0; i < jcb.getItemCount(); i++) {
+			if (extractKode(jcb.getItemAt(i).toString(), length).equals(kode)) {
+				jcb.setSelectedIndex(i);
+				break;
+			}
+		}
+	}
 
     private void btBackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btBackMouseClicked
 		try {
@@ -303,17 +375,103 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
 		}
 
 		if (!anyError) {
-
 			kereta = cbKereta.getSelectedItem().toString();
 			kereta = extractKode(kereta, 10);
+			hari = cbHari.getSelectedIndex();
+
+			checkKereta(kereta, asal, tujuan, hari, brkt, tiba);
+		}
+
+		if (!anyError) {
 
 			harga = (int) spHarga.getValue();
-			hari = cbHari.getSelectedIndex() + 1;
-			insertData(kereta, harga, asal, tujuan, hari, brkt, tiba);
-			resetForm();
+			if (dataJdw == null) {
+				insertData(kereta, harga, asal, tujuan, hari, brkt, tiba);
+				resetForm();
+			} else {
+				String kode = dataJdw.get(0).toString();
+				updateData(kode, kereta, harga, asal, tujuan, hari, brkt, tiba);
+			}
 		}
 		toggleInput(true);
     }//GEN-LAST:event_btSubmitMouseClicked
+
+	private void checkKereta(String kereta, String asal, String tujuan, int hari, String brkt, String tiba) {
+		String kode = dataJdw.get(0).toString();
+		String sql = "SELECT * FROM JADWAL WHERE KODE_KERETA = '%s' AND KODE_ASAL = '%s' AND KODE_TUJUAN = '%s' AND HARI = %s AND KODE_JADWAL != '%s'";
+		sql = String.format(sql, kereta, asal, tujuan, hari, kode);
+		try {
+			cmd = koneksi.conn.createStatement();
+			res = cmd.executeQuery(sql);
+			if (res.next()) {
+				String currentJamBrkt = res.getString("JAM_BERANGKAT");
+				String currentJamTiba = res.getString("JAM_TIBA");
+				checkRangeJam(currentJamBrkt, currentJamTiba, brkt, tiba);
+			}
+		} catch (SQLException ex) {
+			Logger.getLogger(frameInputJdw.class.getName()).log(Level.SEVERE, null, ex);
+			showAlert("Terjadi kesalahan.", "err");
+		}
+	}
+
+	private void checkRangeJam(String currentJamBrkt, String currentJamTiba, String brkt, String tiba) {
+		if (brkt.equalsIgnoreCase(currentJamBrkt) && tiba.equalsIgnoreCase(currentJamTiba)) {
+			showAlert("Kereta dengan data pilihan yang sama telah tersedia.", "err");
+			anyError = true;
+		} else {
+			try {
+				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+				Date cjtiba = sdf.parse(currentJamTiba);
+				Date cbrkt = sdf.parse(brkt);
+				if (cbrkt.before(cjtiba)) {
+					showAlert("Kereta telah tersedia dengan waktu " + currentJamBrkt + " - " + currentJamTiba + ".", "err");
+					anyError = true;
+				}
+			} catch (ParseException ex) {
+				Logger.getLogger(frameInputJdw.class.getName()).log(Level.SEVERE, null, ex);
+				anyError = true;
+				showAlert("Terjadi kesalahan.", "err");
+			}
+		}
+	}
+
+    private void btDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btDeleteMouseClicked
+		String kode = dataJdw.get(0).toString();
+
+		toggleInput(false);
+
+		int response = JOptionPane.showConfirmDialog(null, "Apakah anda yakin?", "Hapus Data", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+		if (response == JOptionPane.YES_OPTION) {
+			if (deleteData(kode)) {
+				try {
+					frameDataJdw dataJadwal = new frameDataJdw(mainPanel);
+					this.dispose();
+					mainPanel.add(dataJadwal);
+					dataJadwal.setMaximum(true);
+					dataJadwal.setVisible(true);
+					JOptionPane.showMessageDialog(dataJadwal, "Data berhasil dihapus.", "Sukses!", JOptionPane.INFORMATION_MESSAGE);
+				} catch (PropertyVetoException ex) {
+					Logger.getLogger(frameDataJdw.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
+			} else {
+				JOptionPane.showMessageDialog(null, "Data gagal dihapus.", "Gagal!", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		toggleInput(true);
+    }//GEN-LAST:event_btDeleteMouseClicked
+
+	private boolean deleteData(String kode) {
+		String query = "DELETE FROM JADWAL WHERE KODE_JADWAL = '" + kode + "'";
+		try {
+			cmd = koneksi.conn.createStatement();
+			rs = cmd.executeUpdate(query);
+			return true;
+		} catch (SQLException ex) {
+			return false;
+		}
+	}
 
 	private void resetForm() {
 		cbKereta.setSelectedIndex(0);
@@ -334,6 +492,26 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
 		tpBrkt.setEnabled(status);
 		tpTiba.setEnabled(status);
 		btSubmit.setEnabled(status);
+		btDelete.setEnabled(status);
+	}
+
+	private void updateData(String kode, String kereta, int harga, String asal, String tujuan, int hari, String brkt, String tiba) {
+		try {
+			call = koneksi.conn.prepareCall("{CALL UPD_JADWAL(?, ?, ?, ?, ?, ?, ?, ?)}");
+			call.setString(1, kode);
+			call.setString(2, kereta);
+			call.setInt(3, harga);
+			call.setString(4, asal);
+			call.setString(5, tujuan);
+			call.setInt(6, hari);
+			call.setString(7, brkt);
+			call.setString(8, tiba);
+			call.execute();
+			showAlert("Data berhasil diubah", "inf");
+		} catch (SQLException ex) {
+			Logger.getLogger(frameInputJdw.class.getName()).log(Level.SEVERE, null, ex);
+			showAlert("Data gagal diubah.", "err");
+		}
 	}
 
 	private void insertData(String kereta, int harga, String asal, String tujuan, int hari, String brkt, String tiba) {
@@ -476,6 +654,7 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBack;
+    private javax.swing.JButton btDelete;
     private javax.swing.JButton btSubmit;
     private javax.swing.JComboBox<String> cbAsal;
     private javax.swing.JComboBox<String> cbHari;

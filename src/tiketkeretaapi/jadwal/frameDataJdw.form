@@ -17,7 +17,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-32,0,0,2,-18"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-32,0,0,2,-19"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -37,18 +37,13 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="btnAddData" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="526" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="jScrollPane1" pref="638" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jScrollPane1" min="-2" pref="637" max="-2" attributes="0"/>
+                      <Component id="btnAddData" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -102,41 +97,31 @@
             <Component class="javax.swing.JTable" name="tbJadwal">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="8" rowCount="1">
-                    <Column editable="true" title="NO" type="java.lang.Integer">
-                      <Data value="1"/>
-                    </Column>
-                    <Column editable="true" title="KODE" type="java.lang.String">
-                      <Data value="JDW-DI2XOD"/>
-                    </Column>
-                    <Column editable="true" title="KERETA" type="java.lang.String">
-                      <Data value="Bima"/>
-                    </Column>
-                    <Column editable="true" title="ASAL" type="java.lang.String">
-                      <Data value="Surabaya"/>
-                    </Column>
-                    <Column editable="true" title="TUJUAN" type="java.lang.String">
-                      <Data value="Malang"/>
-                    </Column>
-                    <Column editable="true" title="HARI" type="java.lang.String">
-                      <Data value="Senin"/>
-                    </Column>
-                    <Column editable="true" title="JAM BERANGKAT" type="java.lang.String">
-                      <Data value="15:35"/>
-                    </Column>
-                    <Column editable="true" title="JAM TIBA" type="java.lang.String">
-                      <Data value="18:10"/>
-                    </Column>
+                  <Table columnCount="9" rowCount="0">
+                    <Column editable="false" title="NO" type="java.lang.String"/>
+                    <Column editable="false" title="KODE" type="java.lang.String"/>
+                    <Column editable="false" title="KERETA" type="java.lang.String"/>
+                    <Column editable="false" title="HARGA" type="java.lang.Integer"/>
+                    <Column editable="false" title="ASAL" type="java.lang.String"/>
+                    <Column editable="false" title="TUJUAN" type="java.lang.String"/>
+                    <Column editable="false" title="HARI" type="java.lang.String"/>
+                    <Column editable="false" title="JAM BERANGKAT" type="java.lang.String"/>
+                    <Column editable="false" title="JAM TIBA" type="java.lang.String"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="false">
                       <Title/>
                       <Editor/>
                       <Renderer/>
                     </Column>
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="false">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
@@ -172,9 +157,6 @@
                       <Renderer/>
                     </Column>
                   </TableColumnModel>
-                </Property>
-                <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[300, 40]"/>
                 </Property>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
