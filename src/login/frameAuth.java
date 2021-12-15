@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import tiketkeretaapi.Koneksi;
+import tiketkeretaapi.adminFrame;
 import tiketkeretaapi.mainFrame;
 
 /**
@@ -148,16 +149,19 @@ public class frameAuth extends javax.swing.JFrame {
 	}
 
 	private void setLogin(String kode, String nama) {
+
 		this.dispose();
 		sess.setKodeKaryawan(kode);
 		if (kode.equals("admin")) {
 			sess.setLevel("admin");
+			adminFrame frame = new adminFrame(sess);
+			frame.main(null);
 		} else {
 			sess.setLevel("karyawan");
 			sess.setNamaKaryawan(nama);
+			mainFrame frame = new mainFrame(sess);
+			frame.main(null);
 		}
-		mainFrame mainFrame = new mainFrame(sess);
-		mainFrame.main(null);
 	}
 
 	private void errMessage(String msg) {

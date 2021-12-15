@@ -4,10 +4,10 @@ import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import login.Session;
-import login.frameAuth;
 import tiketkeretaapi.jadwal.frameDataJdw;
 import tiketkeretaapi.karyawan.frameDataKry;
 import tiketkeretaapi.kereta.frameDataKrt;
+import tiketkeretaapi.transaksi.frameDataTrk;
 
 /**
  *
@@ -18,10 +18,12 @@ public class adminFrame extends javax.swing.JFrame {
 	frameDataKry frameKaryawan;
 	frameDataKrt frameKereta;
 	frameDataJdw frameJadwal;
+	frameDataTrk frameTrk;
 	static Session sess = new Session();
 
 	public adminFrame(Session session) {
 		initComponents();
+		sess = session;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -221,7 +223,7 @@ public class adminFrame extends javax.swing.JFrame {
         );
 
         sbMenuTransaksi.setBackground(new java.awt.Color(0, 173, 181));
-        sbMenuTransaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        sbMenuTransaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sbMenuTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 sbMenuTransaksiMouseClicked(evt);
@@ -372,7 +374,16 @@ public class adminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sbMenuJadwalMouseClicked
 
     private void sbMenuTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sbMenuTransaksiMouseClicked
-		// TODO add your handling code here:
+		frameTrk = new frameDataTrk(jDesktopPane, sess);
+		jDesktopPane.removeAll();
+		jDesktopPane.updateUI();
+		try {
+			jDesktopPane.add(frameTrk);
+			frameTrk.setMaximum(true);
+			frameTrk.setVisible(true);
+		} catch (PropertyVetoException ex) {
+			Logger.getLogger(adminFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
     }//GEN-LAST:event_sbMenuTransaksiMouseClicked
 
     private void sbTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sbTransaksiActionPerformed
@@ -408,11 +419,7 @@ public class adminFrame extends javax.swing.JFrame {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				if (sess.getKodeKaryawan() == null) {
-					new frameAuth(sess).setVisible(true);
-				} else {
-					new adminFrame(null).setVisible(true);
-				}
+				new adminFrame(sess).setVisible(true);
 			}
 		});
 	}

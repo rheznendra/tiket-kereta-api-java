@@ -4,6 +4,7 @@ import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import login.Session;
+import login.frameAuth;
 import tiketkeretaapi.transaksi.frameDataTrk;
 
 /**
@@ -17,9 +18,9 @@ public class mainFrame extends javax.swing.JFrame {
 
 	public mainFrame(Session session) {
 		initComponents();
-//		if (sess.getKodeKaryawan() != null) {
-//			karyawanName.setText(sess.getNamaKaryawan());
-//		}
+		if (sess.getKodeKaryawan() != null) {
+			karyawanName.setText(sess.getNamaKaryawan());
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -244,7 +245,7 @@ public class mainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void sbMenuTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sbMenuTransaksiMouseClicked
-		frameTrk = new frameDataTrk(jDesktopPane);
+		frameTrk = new frameDataTrk(jDesktopPane, sess);
 		try {
 			jDesktopPane.add(frameTrk);
 			frameTrk.setMaximum(true);
@@ -255,10 +256,10 @@ public class mainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sbMenuTransaksiMouseClicked
 
     private void sbMenuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sbMenuLogoutMouseClicked
-//		sess.setKodeKaryawan(null);
-//		sess.setLevel(null);
+		sess.setKodeKaryawan(null);
+		sess.setLevel(null);
 		this.dispose();
-//		new frameAuth(sess).setVisible(true);
+		new frameAuth(sess).setVisible(true);
     }//GEN-LAST:event_sbMenuLogoutMouseClicked
 
 	public static void main(String args[]) {
@@ -290,15 +291,11 @@ public class mainFrame extends javax.swing.JFrame {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-//				if (sess.getKodeKaryawan() == null) {
-//					new frameAuth(sess).setVisible(true);
-//				} else {
-//					if (sess.getLevel().equals("admin")) {
-						new adminFrame(null).setVisible(true);
-//					} else {
-//						new mainFrame(null).setVisible(true);
-//					}
-//				}
+				if (sess.getKodeKaryawan() == null) {
+					new frameAuth(sess).setVisible(true);
+				} else {
+					new mainFrame(sess).setVisible(true);
+				}
 			}
 		});
 	}

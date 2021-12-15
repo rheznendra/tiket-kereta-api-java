@@ -15,7 +15,6 @@ public class CurrencyID {
 		nominal = n;
 	}
 
-	@Override
 	public String toString() {
 		DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
 		DecimalFormatSymbols formatRupiah = new DecimalFormatSymbols();
