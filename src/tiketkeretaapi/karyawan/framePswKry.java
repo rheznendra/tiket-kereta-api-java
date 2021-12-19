@@ -38,42 +38,20 @@ public class framePswKry extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lbNama = new javax.swing.JLabel();
-        lbAlamat = new javax.swing.JLabel();
-        btSubmit = new javax.swing.JButton();
         btBack = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        lbUsername = new javax.swing.JLabel();
         btInputKry = new javax.swing.JButton();
-        tfCurrentPsw = new javax.swing.JPasswordField();
+        jSeparator1 = new javax.swing.JSeparator();
+        lbNewPsw = new javax.swing.JLabel();
         tfNewPsw = new javax.swing.JPasswordField();
+        lbConfirmPsw = new javax.swing.JLabel();
         tfConfNewPsw = new javax.swing.JPasswordField();
+        btSubmit = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(732, 402));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
         jPanel1.setMaximumSize(jPanel1.getPreferredSize());
-
-        lbNama.setBackground(new java.awt.Color(57, 62, 70));
-        lbNama.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
-        lbNama.setForeground(new java.awt.Color(57, 62, 70));
-        lbNama.setText("PASSWORD BARU");
-
-        lbAlamat.setBackground(new java.awt.Color(57, 62, 70));
-        lbAlamat.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
-        lbAlamat.setForeground(new java.awt.Color(57, 62, 70));
-        lbAlamat.setText("KONFIRMASI PASSWORD BARU");
-
-        btSubmit.setBackground(new java.awt.Color(57, 62, 70));
-        btSubmit.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
-        btSubmit.setForeground(new java.awt.Color(238, 238, 238));
-        btSubmit.setText("Ubah");
-        btSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btSubmitMouseClicked(evt);
-            }
-        });
 
         btBack.setBackground(new java.awt.Color(57, 62, 70));
         btBack.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
@@ -89,11 +67,6 @@ public class framePswKry extends javax.swing.JInternalFrame {
             }
         });
 
-        lbUsername.setBackground(new java.awt.Color(57, 62, 70));
-        lbUsername.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
-        lbUsername.setForeground(new java.awt.Color(57, 62, 70));
-        lbUsername.setText("PASSWORD SEKARANG");
-
         btInputKry.setBackground(new java.awt.Color(57, 62, 70));
         btInputKry.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         btInputKry.setForeground(new java.awt.Color(255, 255, 255));
@@ -108,6 +81,26 @@ public class framePswKry extends javax.swing.JInternalFrame {
             }
         });
 
+        lbNewPsw.setBackground(new java.awt.Color(57, 62, 70));
+        lbNewPsw.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        lbNewPsw.setForeground(new java.awt.Color(57, 62, 70));
+        lbNewPsw.setText("PASSWORD BARU");
+
+        lbConfirmPsw.setBackground(new java.awt.Color(57, 62, 70));
+        lbConfirmPsw.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        lbConfirmPsw.setForeground(new java.awt.Color(57, 62, 70));
+        lbConfirmPsw.setText("KONFIRMASI PASSWORD BARU");
+
+        btSubmit.setBackground(new java.awt.Color(57, 62, 70));
+        btSubmit.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        btSubmit.setForeground(new java.awt.Color(238, 238, 238));
+        btSubmit.setText("Ubah");
+        btSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btSubmitMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -117,17 +110,14 @@ public class framePswKry extends javax.swing.JInternalFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tfConfNewPsw, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(tfNewPsw)
-                        .addComponent(tfCurrentPsw, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                        .addComponent(lbNama)
-                        .addComponent(lbAlamat)
-                        .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btInputKry, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(lbUsername)))
+                    .addComponent(tfNewPsw)
+                    .addComponent(lbNewPsw)
+                    .addComponent(lbConfirmPsw)
+                    .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btInputKry, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(395, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -140,15 +130,11 @@ public class framePswKry extends javax.swing.JInternalFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbUsername)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfCurrentPsw, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbNama)
+                .addComponent(lbNewPsw)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNewPsw, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lbAlamat)
+                .addComponent(lbConfirmPsw)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfConfNewPsw, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -174,31 +160,25 @@ public class framePswKry extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btBackActionPerformed
 
     private void btSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSubmitMouseClicked
-		disableButton();
-		String currentPsw = new String(tfCurrentPsw.getPassword());
+		toggleInput(false);
 		String newPsw = new String(tfNewPsw.getPassword());
 		String confNewPsw = new String(tfConfNewPsw.getPassword());
-		if (!currentPsw.isBlank() && !newPsw.isBlank() && !confNewPsw.isBlank()) {
-			if (checkPsw(currentPsw)) {
-				if (newPsw.equals(confNewPsw)) {
-					if (updateData(newPsw)) {
-						showAlert("Password berhasil diubah.", "inf");
-					} else {
-						showAlert("Terjadi kesalahan.", "err");
-					}
+		if (!newPsw.isBlank() && !confNewPsw.isBlank()) {
+			if (newPsw.equals(confNewPsw)) {
+				if (updateData(newPsw)) {
+					showAlert("Password berhasil diubah.", "inf");
 				} else {
-					showAlert("Password baru tidak sama.", "err");
+					showAlert("Terjadi kesalahan.", "err");
 				}
 			} else {
-				showAlert("Password sekarang tidak sesuai pada database.", "err");
+				showAlert("Konfirmasi password tidak sama.", "err");
 			}
 		} else {
 			showAlert("Form tidak boleh kosong.", "err");
 		}
-		tfCurrentPsw.setText("");
 		tfNewPsw.setText("");
 		tfConfNewPsw.setText("");
-		enableButton();
+		toggleInput(true);
     }//GEN-LAST:event_btSubmitMouseClicked
 
     private void btInputKryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btInputKryMouseClicked
@@ -258,18 +238,10 @@ public class framePswKry extends javax.swing.JInternalFrame {
 		}
 	}
 
-	private void disableButton() {
-		tfCurrentPsw.setEnabled(false);
-		tfNewPsw.setEnabled(false);
-		tfConfNewPsw.setEnabled(false);
-		btSubmit.setEnabled(false);
-	}
-
-	private void enableButton() {
-		tfCurrentPsw.setEnabled(true);
-		tfNewPsw.setEnabled(true);
-		tfConfNewPsw.setEnabled(true);
-		btSubmit.setEnabled(true);
+	private void toggleInput(boolean status) {
+		tfNewPsw.setEnabled(status);
+		tfConfNewPsw.setEnabled(status);
+		btSubmit.setEnabled(status);
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -278,11 +250,9 @@ public class framePswKry extends javax.swing.JInternalFrame {
     private javax.swing.JButton btSubmit;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lbAlamat;
-    private javax.swing.JLabel lbNama;
-    private javax.swing.JLabel lbUsername;
+    private javax.swing.JLabel lbConfirmPsw;
+    private javax.swing.JLabel lbNewPsw;
     private javax.swing.JPasswordField tfConfNewPsw;
-    private javax.swing.JPasswordField tfCurrentPsw;
     private javax.swing.JPasswordField tfNewPsw;
     // End of variables declaration//GEN-END:variables
 }

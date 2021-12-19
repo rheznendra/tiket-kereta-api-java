@@ -255,6 +255,7 @@ public class frameInputKrt extends javax.swing.JInternalFrame {
 			res = cmd.executeUpdate(query);
 			return true;
 		} catch (SQLException ex) {
+			System.out.println(ex.getErrorCode());
 			return false;
 		}
 	}

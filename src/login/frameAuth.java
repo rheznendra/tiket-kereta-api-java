@@ -58,13 +58,14 @@ public class frameAuth extends javax.swing.JFrame {
         btSubmit.setForeground(new java.awt.Color(238, 238, 238));
         btSubmit.setText("Login");
         btSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btSubmitMouseClicked(evt);
+        btSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSubmitActionPerformed(evt);
             }
         });
 
         tfUsername.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
+        tfUsername.setText("admin");
         tfUsername.setPreferredSize(new java.awt.Dimension(75, 50));
 
         lbUsername.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
@@ -74,6 +75,8 @@ public class frameAuth extends javax.swing.JFrame {
         lbPassword.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbPassword.setForeground(new java.awt.Color(0, 0, 0));
         lbPassword.setText("Password");
+
+        tfPassword.setText("admin");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,21 +114,40 @@ public class frameAuth extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSubmitMouseClicked
-
+    private void btSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSubmitActionPerformed
+		toggleInput(false);
 		String username = tfUsername.getText().strip();
 		String password = new String(tfPassword.getPassword());
 
 		if (!username.isBlank() && !password.isBlank()) {
-			if (username.equalsIgnoreCase("admin") && password.equalsIgnoreCase("admin")) {
-				setLogin("admin", null);
+			if (username.equalsIgnoreCase("admin")) {
+				if (password.equalsIgnoreCase("admin")) {
+					setLogin("admin", null);
+				} else {
+					resetInput(false);
+					errMessage("Password yang anda masukkan salah.");
+				}
 			} else {
 				checkLogin(username, password);
 			}
 		} else {
 			errMessage("Username/password tidak boleh kosong.");
 		}
-    }//GEN-LAST:event_btSubmitMouseClicked
+		toggleInput(true);
+    }//GEN-LAST:event_btSubmitActionPerformed
+
+	private void resetInput(boolean uname) {
+		if (uname) {
+			tfUsername.setText("");
+		}
+		tfPassword.setText("");
+	}
+
+	private void toggleInput(boolean status) {
+		tfUsername.setEnabled(status);
+		tfPassword.setEnabled(status);
+		btSubmit.setEnabled(status);
+	}
 
 	private void checkLogin(String username, String password) {
 		String sql = "SELECT * FROM KARYAWAN WHERE USERNAME = '" + username + "'";
@@ -137,9 +159,11 @@ public class frameAuth extends javax.swing.JFrame {
 				if (result.verified) {
 					setLogin(res.getString("KODE_KARYAWAN"), res.getString("NAMA_KARYAWAN"));
 				} else {
+					resetInput(false);
 					errMessage("Password yang anda masukkan salah.");
 				}
 			} else {
+				resetInput(true);
 				errMessage("Username belum terdaftar.");
 			}
 		} catch (SQLException ex) {

@@ -75,13 +75,13 @@ public class frameDataTrk extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
 
-        btnAddTransaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_plus_+_16px.png"))); // NOI18N
-        btnAddTransaksi.setText("Tambah Data");
         btnAddTransaksi.setBackground(new java.awt.Color(57, 62, 70));
-        btnAddTransaksi.setBorderPainted(false);
-        btnAddTransaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddTransaksi.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         btnAddTransaksi.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddTransaksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_plus_+_16px.png"))); // NOI18N
+        btnAddTransaksi.setText("Tambah Data");
+        btnAddTransaksi.setBorderPainted(false);
+        btnAddTransaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAddTransaksi.setPreferredSize(new java.awt.Dimension(132, 25));
         btnAddTransaksi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,7 +98,7 @@ public class frameDataTrk extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false

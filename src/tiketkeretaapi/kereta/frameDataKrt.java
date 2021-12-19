@@ -77,19 +77,25 @@ public class frameDataKrt extends javax.swing.JInternalFrame {
 
         tbKereta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                { new Integer(1), "KRT-T431LD", "Bima",  new Integer(200)},
-                { new Integer(2), "KRT-LOS9FD", "Argopuro",  new Integer(175)}
+
             },
             new String [] {
                 "NO", "KODE KERETA", "NAMA KERETA", "JUMLAH PENUMPANG"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         tbKereta.getTableHeader().setReorderingAllowed(false);

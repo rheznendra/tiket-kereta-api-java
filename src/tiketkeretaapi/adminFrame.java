@@ -4,6 +4,7 @@ import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import login.Session;
+import login.frameAuth;
 import tiketkeretaapi.jadwal.frameDataJdw;
 import tiketkeretaapi.karyawan.frameDataKry;
 import tiketkeretaapi.kereta.frameDataKrt;
@@ -47,10 +48,14 @@ public class adminFrame extends javax.swing.JFrame {
         sbMenuTransaksi = new javax.swing.JPanel();
         icTransaksi = new javax.swing.JLabel();
         sbTransaksi = new javax.swing.JButton();
+        sbMenuLogout = new javax.swing.JPanel();
+        icLogout = new javax.swing.JLabel();
+        sbLogout = new javax.swing.JButton();
         header = new javax.swing.JPanel();
         jDesktopPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin Tiket Kereta Api");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -268,6 +273,47 @@ public class adminFrame extends javax.swing.JFrame {
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
+        sbMenuLogout.setBackground(new java.awt.Color(0, 173, 181));
+        sbMenuLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sbMenuLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sbMenuLogoutMouseClicked(evt);
+            }
+        });
+
+        icLogout.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        icLogout.setForeground(new java.awt.Color(238, 238, 238));
+        icLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_sign_out_16px.png"))); // NOI18N
+
+        sbLogout.setBackground(new java.awt.Color(238, 238, 238));
+        sbLogout.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        sbLogout.setForeground(new java.awt.Color(238, 238, 238));
+        sbLogout.setText("Logout");
+        sbLogout.setBorder(null);
+        sbLogout.setBorderPainted(false);
+        sbLogout.setContentAreaFilled(false);
+
+        javax.swing.GroupLayout sbMenuLogoutLayout = new javax.swing.GroupLayout(sbMenuLogout);
+        sbMenuLogout.setLayout(sbMenuLogoutLayout);
+        sbMenuLogoutLayout.setHorizontalGroup(
+            sbMenuLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sbMenuLogoutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(icLogout)
+                .addGap(18, 18, 18)
+                .addComponent(sbLogout)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        sbMenuLogoutLayout.setVerticalGroup(
+            sbMenuLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sbMenuLogoutLayout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addGroup(sbMenuLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(sbLogout)
+                    .addComponent(icLogout))
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout sideBarLayout = new javax.swing.GroupLayout(sideBar);
         sideBar.setLayout(sideBarLayout);
         sideBarLayout.setHorizontalGroup(
@@ -275,12 +321,13 @@ public class adminFrame extends javax.swing.JFrame {
             .addComponent(sbMenuKaryawan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sbMenuDashboard, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sideBarLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(sbTitle)
                 .addGap(15, 15, 15))
             .addComponent(sbMenuKereta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sbMenuJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sbMenuTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sbMenuLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         sideBarLayout.setVerticalGroup(
             sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -297,6 +344,8 @@ public class adminFrame extends javax.swing.JFrame {
                 .addComponent(sbMenuJadwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sbMenuTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sbMenuLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -390,6 +439,13 @@ public class adminFrame extends javax.swing.JFrame {
 		// TODO add your handling code here:
     }//GEN-LAST:event_sbTransaksiActionPerformed
 
+    private void sbMenuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sbMenuLogoutMouseClicked
+        sess.setKodeKaryawan(null);
+        sess.setLevel(null);
+        this.dispose();
+        new frameAuth(sess).setVisible(true);
+    }//GEN-LAST:event_sbMenuLogoutMouseClicked
+
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -430,16 +486,19 @@ public class adminFrame extends javax.swing.JFrame {
     private javax.swing.JLabel icJadwal;
     private javax.swing.JLabel icKaryawan;
     private javax.swing.JLabel icKereta;
+    private javax.swing.JLabel icLogout;
     private javax.swing.JLabel icTransaksi;
     private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JButton sbDashboard;
     private javax.swing.JButton sbJadwal;
     private javax.swing.JButton sbKaryawan;
     private javax.swing.JButton sbKereta;
+    private javax.swing.JButton sbLogout;
     private javax.swing.JPanel sbMenuDashboard;
     private javax.swing.JPanel sbMenuJadwal;
     private javax.swing.JPanel sbMenuKaryawan;
     private javax.swing.JPanel sbMenuKereta;
+    private javax.swing.JPanel sbMenuLogout;
     private javax.swing.JPanel sbMenuTransaksi;
     private javax.swing.JLabel sbTitle;
     private javax.swing.JButton sbTransaksi;
