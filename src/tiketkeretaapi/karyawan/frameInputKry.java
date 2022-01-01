@@ -100,6 +100,7 @@ public class frameInputKry extends javax.swing.JInternalFrame {
         btSubmit.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         btSubmit.setForeground(new java.awt.Color(238, 238, 238));
         btSubmit.setText("Kirim");
+        btSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btSubmitMouseClicked(evt);
@@ -124,6 +125,7 @@ public class frameInputKry extends javax.swing.JInternalFrame {
         btDelete.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         btDelete.setForeground(new java.awt.Color(238, 238, 238));
         btDelete.setText("Hapus");
+        btDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btDelete.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btDeleteMouseClicked(evt);

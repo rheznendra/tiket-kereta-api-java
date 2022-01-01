@@ -1,11 +1,8 @@
 package tiketkeretaapi.transaksi;
 
 import java.beans.PropertyVetoException;
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
@@ -13,19 +10,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import login.Session;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 import tiketkeretaapi.CurrencyID;
 import tiketkeretaapi.Koneksi;
-import tiketkeretaapi.karyawan.frameDataKry;
-import tiketkeretaapi.karyawan.frameInputKry;
 
 /**
  *
  * @author RZ
  */
+
 public class frameDataTrk extends javax.swing.JInternalFrame {
 
 	DefaultTableModel tmTransaksi;
@@ -175,7 +167,7 @@ public class frameDataTrk extends javax.swing.JInternalFrame {
 
     private void btnAddTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTransaksiActionPerformed
 		try {
-			frameInputTrk addTrk = new frameInputTrk(mainPanel);
+			frameInputTrk addTrk = new frameInputTrk(mainPanel, null, null);
 			this.dispose();
 			mainPanel.add(addTrk);
 			addTrk.setVisible(true);
@@ -194,31 +186,22 @@ public class frameDataTrk extends javax.swing.JInternalFrame {
 			for (int i = 1; i < columnCount; i++) {
 				selectedRow.add(tbTransaksi.getValueAt(index, i));
 			}
-			try {
-				frameInputKry addKaryawan = new frameInputKry(mainPanel, selectedRow);
-				this.dispose();
-				mainPanel.add(addKaryawan);
-				addKaryawan.setVisible(true);
-				addKaryawan.setMaximum(true);
-			} catch (PropertyVetoException ex) {
-				Logger.getLogger(frameDataTrk.class.getName()).log(Level.SEVERE, null, ex);
-			}
 		}
     }//GEN-LAST:event_tbTransaksiMouseClicked
 
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
-		Map param = new HashMap();
-		if (sess.getLevel().equals("karyawan")) {
-			param.put("kodeKry", sess.getKodeKaryawan());
-			try {
-				File namaFile = new File("src/report/reportTrkKaryawan.jasper");
-				JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), param, koneksi.conn);
-				JasperViewer jpv = new JasperViewer(jp, false);
-				jpv.setVisible(true);
-			} catch (JRException ex) {
-				Logger.getLogger(frameDataKry.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
+//		Map param = new HashMap<>();
+//		if (sess.getLevel().equals("karyawan")) {
+//			param.put("kodeKry", sess.getKodeKaryawan());
+//			try {
+//				File namaFile = new File("src/report/reportTrkKaryawan.jasper");
+//				JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), param, koneksi.conn);
+//				JasperViewer jpv = new JasperViewer(jp, false);
+//				jpv.setVisible(true);
+//			} catch (JRException ex) {
+//				Logger.getLogger(frameDataKry.class.getName()).log(Level.SEVERE, null, ex);
+//			}
+//		}
     }//GEN-LAST:event_btnPrintMouseClicked
 
 	private void getDataKaryawan() {

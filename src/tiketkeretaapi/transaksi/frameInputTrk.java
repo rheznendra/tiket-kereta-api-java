@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -17,6 +18,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
@@ -34,10 +36,17 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
 	Statement cmd;
 	ResultSet res;
 	boolean anyError;
+	Vector<CbxKereta> vectorKrt = new Vector<>();
+	ArrayList<DataTransaksi> dataTrk = new ArrayList<>();
+	ArrayList<DataDetailTransaksi> dataPnp = new ArrayList<>();
 
-	public frameInputTrk(JDesktopPane panel) {
+	public frameInputTrk(JDesktopPane panel, ArrayList<DataTransaksi> data, ArrayList<DataDetailTransaksi> penumpang) {
 		initComponents();
 		mainPanel = panel;
+		if (data != null) {
+			dataTrk = data;
+			dataPnp = penumpang;
+		}
 		((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 	}
@@ -311,9 +320,26 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
 			int jmlPenumpang = (int) spJmlPenumpang.getValue();
 			CbxKereta selectedKrt = (CbxKereta) cbKereta.getSelectedItem();
 			String kereta = selectedKrt.getId();
-			Object[] dataTrk = {asal, tujuan, tanggal, hariNum, kereta, jmlPenumpang};
+			dataTrk.clear();
+			dataTrk.add(new DataTransaksi(asal, tujuan, tanggal, hariNum, kereta, jmlPenumpang));
+
+			if (dataPnp.size() >= 1 && jmlPenumpang != dataPnp.size()) {
+				ArrayList<DataDetailTransaksi> tempVct = new ArrayList<>();
+
+				int loop = dataPnp.size() > jmlPenumpang ? jmlPenumpang : dataPnp.size();
+				for (int i = 0; i < loop; i++) {
+					String ktp = dataPnp.get(i).getKtp();
+					String nama = dataPnp.get(i).getNama();
+					String alamat = dataPnp.get(i).getAlamat();
+					String hp = dataPnp.get(i).getNohp();
+					tempVct.add(new DataDetailTransaksi(ktp, nama, alamat, hp));
+				}
+				dataPnp.clear();
+				dataPnp.addAll(tempVct);
+			}
+
 			try {
-				frameInputDetailTrk detailTrk = new frameInputDetailTrk(mainPanel, dataTrk);
+				frameDataDetailTrk detailTrk = new frameDataDetailTrk(mainPanel, dataTrk, dataPnp);
 				this.dispose();
 				mainPanel.add(detailTrk);
 				detailTrk.setMaximum(true);
@@ -356,6 +382,7 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbKeretaItemStateChanged
 
     private void btCariMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCariMouseClicked
+		resetCbKereta();
 		anyError = false;
 		String asal = cbAsal.getSelectedItem().toString();
 		asal = extractKode(asal, 3);
@@ -370,9 +397,7 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
 		}
 
 		if (!anyError) {
-
 			dof = getHariNum();
-			resetCbKereta();
 			setKereta(asal, tujuan, dof);
 		}
     }//GEN-LAST:event_btCariMouseClicked
@@ -428,19 +453,59 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
 				setHarga(0);
 			}
 		});
+		if (!dataTrk.isEmpty()) {
+			String asal = dataTrk.get(0).getAsal();
+			String tujuan = dataTrk.get(0).getTujuan();
+
+			String tanggal = dataTrk.get(0).getTanggal();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d-MM-yyyy");
+			LocalDate tgl = LocalDate.parse(tanggal, dtf);
+			Date dtgl = java.sql.Date.valueOf(tgl);
+			tanggal = new SimpleDateFormat("EEEE, dd MMMM yyyy", new Locale("id", "ID")).format(dtgl);
+			int hariNum = dataTrk.get(0).getHariNum();
+
+			String kereta = dataTrk.get(0).getKereta();
+			int jmlPenumpang = dataTrk.get(0).getJmlPenumpang();
+			setCbAsalTujuan(cbAsal, asal);
+			setCbAsalTujuan(cbTujuan, tujuan);
+			dcTgl.setText(tanggal);
+
+			setKereta(asal, tujuan, hariNum);
+			for (int i = 0; i < vectorKrt.size(); i++) {
+				if (vectorKrt.get(i).getId().equals(kereta)) {
+					cbKereta.setSelectedIndex(i);
+					break;
+				}
+			}
+
+			spJmlPenumpang.setValue(jmlPenumpang);
+			btNext.setVisible(true);
+		}
     }//GEN-LAST:event_formInternalFrameOpened
+
+	private void setCbAsalTujuan(JComboBox cb, String kode) {
+		for (int i = 1; i < cb.getItemCount(); i++) {
+			if (extractKode(cb.getItemAt(i).toString(), 3).equals(kode)) {
+				cb.setSelectedIndex(i);
+				break;
+			}
+		}
+	}
 
 	private void setKereta(String asal, String tujuan, int hari) {
 		String query = "SELECT j.KODE_JADWAL, j.JAM_BERANGKAT, j.JAM_TIBA, k.NAMA_KERETA FROM JADWAL j INNER JOIN KERETA k ON j.KODE_KERETA = k.KODE_KERETA WHERE j.KODE_ASAL = '%s' AND j.KODE_TUJUAN = '%s' AND j.HARI = %s ORDER BY 2 ASC";
 		query = String.format(query, asal, tujuan, hari);
-		Vector<CbxKereta> vector = new Vector<>();
-		vector.addElement(new CbxKereta("", "------------------PILIH------------------"));
+
+		vectorKrt.removeAllElements();
+		vectorKrt.addElement(new CbxKereta("", "------------------PILIH------------------"));
+
 		try {
 			cmd = koneksi.conn.createStatement();
 			res = cmd.executeQuery(query);
 			if (res.next() == false) {
 				showAlert("Pencarian Gagal!", "Ditemukan 0 kereta sesuai asal-tujuan dan hari.", "err");
 			} else {
+				cbKereta.removeAllItems();
 				do {
 					String kode = res.getString("KODE_JADWAL");
 					String brkt = res.getString("JAM_BERANGKAT");
@@ -448,9 +513,9 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
 					String kereta = res.getString("NAMA_KERETA");
 					String list = "%s (%s - %s)";
 					list = String.format(list, kereta, brkt, tiba);
-					vector.addElement(new CbxKereta(kode, list));
+					vectorKrt.addElement(new CbxKereta(kode, list));
 				} while (res.next());
-				cbKereta.setModel(new DefaultComboBoxModel(vector));
+				cbKereta.setModel(new DefaultComboBoxModel(vectorKrt));
 			}
 		} catch (SQLException ex) {
 			Logger.getLogger(frameInputTrk.class.getName()).log(Level.SEVERE, null, ex);
