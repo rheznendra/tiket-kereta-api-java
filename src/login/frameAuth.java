@@ -121,16 +121,7 @@ public class frameAuth extends javax.swing.JFrame {
 		String password = new String(tfPassword.getPassword());
 
 		if (!username.isBlank() && !password.isBlank()) {
-			if (username.equalsIgnoreCase("admin")) {
-				if (password.equalsIgnoreCase("admin")) {
-					setLogin("admin", null);
-				} else {
-					resetInput(false);
-					errMessage("Password yang anda masukkan salah.");
-				}
-			} else {
-				checkLogin(username, password);
-			}
+			checkLogin(username, password);
 		} else {
 			errMessage("Username/password tidak boleh kosong.");
 		}
@@ -158,7 +149,7 @@ public class frameAuth extends javax.swing.JFrame {
 			if (res.next()) {
 				BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(), res.getString("PASSWORD"));
 				if (result.verified) {
-					setLogin(res.getString("KODE_KARYAWAN"), res.getString("NAMA_KARYAWAN"));
+					setLogin(res.getString("KODE_KARYAWAN"), res.getString("NAMA_KARYAWAN"), res.getString("ROLE"));
 				} else {
 					resetInput(false);
 					errMessage("Password yang anda masukkan salah.");
@@ -173,16 +164,16 @@ public class frameAuth extends javax.swing.JFrame {
 		}
 	}
 
-	private void setLogin(String kode, String nama) {
+	private void setLogin(String kode, String nama, String role) {
 
 		this.dispose();
 		sess.setKodeKaryawan(kode);
-		if (kode.equals("admin")) {
-			sess.setLevel("admin");
+		if (role.equalsIgnoreCase("admin")) {
+			sess.setLevel(role);
 			adminFrame frame = new adminFrame(sess);
 			frame.main(null);
 		} else {
-			sess.setLevel("karyawan");
+			sess.setLevel(role);
 			sess.setNamaKaryawan(nama);
 			mainFrame frame = new mainFrame(sess);
 			frame.main(null);
