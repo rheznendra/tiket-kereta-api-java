@@ -17,7 +17,6 @@ import tiketkeretaapi.Koneksi;
  *
  * @author RZ
  */
-
 public class frameDataTrk extends javax.swing.JInternalFrame {
 
 	DefaultTableModel tmTransaksi;
@@ -30,11 +29,9 @@ public class frameDataTrk extends javax.swing.JInternalFrame {
 	public frameDataTrk(JDesktopPane panel, Session session) {
 		initComponents();
 		mainPanel = panel;
+		sess = session;
 		((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
-		if (session != null) {
-			sess = session;
-		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -167,7 +164,7 @@ public class frameDataTrk extends javax.swing.JInternalFrame {
 
     private void btnAddTransaksiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTransaksiActionPerformed
 		try {
-			frameInputTrk addTrk = new frameInputTrk(mainPanel, null, null);
+			frameInputTrk addTrk = new frameInputTrk(mainPanel, sess, null, null);
 			this.dispose();
 			mainPanel.add(addTrk);
 			addTrk.setVisible(true);
@@ -206,8 +203,8 @@ public class frameDataTrk extends javax.swing.JInternalFrame {
 
 	private void getDataKaryawan() {
 		String kode, tglBerangkat, tglTrk;
-		int jmlPenumpang, total;
-		int i = 0;
+		int jmlPenumpang, total, i = 0;
+
 		try {
 
 			String[] columsName = {"NO", "KODE", "JUMLAH PENUMPANG", "TANGGAL BERANGKAT", "TANGGAL TRANSAKSI", "TOTAL"};
@@ -219,8 +216,14 @@ public class frameDataTrk extends javax.swing.JInternalFrame {
 
 			};
 
+			String query = "SELECT KODE_TRK, KODE_KARYAWAN, JUMLAH_PENUMPANG, TO_CHAR(TGL_BERANGKAT, 'dd-Mon-yyyy') AS TGL_BERANGKAT, TO_CHAR(TGL_WAKTU_TRK, 'dd-Mon-yyyy HH24:mi') AS TGL_WAKTU_TRK, TOTAL FROM TRANSAKSI";
+			if (sess.getLevel().equalsIgnoreCase("KARYAWAN")) {
+				query = query + " WHERE KODE_KARYAWAN = '%s'";
+				query = String.format(query, sess.getKodeKaryawan());
+			}
+			query = query + " ORDER BY TGL_WAKTU_TRK DESC";
 			cmd = koneksi.conn.createStatement();
-			res = cmd.executeQuery("SELECT * FROM TRANSAKSI WHERE KODE_KARYAWAN = 'KRY-M1TBY1'");
+			res = cmd.executeQuery(query);
 
 			while (res.next()) {
 				i++;
@@ -234,8 +237,12 @@ public class frameDataTrk extends javax.swing.JInternalFrame {
 			}
 			tbTransaksi.setModel(tmTransaksi);
 			TableColumnModel colModel = tbTransaksi.getColumnModel();
-			colModel.getColumn(0).setPreferredWidth(50);
-			colModel.getColumn(0).setMaxWidth(50);
+			colModel.getColumn(0).setPreferredWidth(30);
+			colModel.getColumn(0).setMaxWidth(30);
+			colModel.getColumn(1).setPreferredWidth(100);
+			colModel.getColumn(1).setMaxWidth(100);
+			colModel.getColumn(5).setPreferredWidth(80);
+			colModel.getColumn(5).setMaxWidth(80);
 		} catch (SQLException ex) {
 			Logger.getLogger(frameDataTrk.class.getName()).log(Level.SEVERE, null, ex);
 		}
