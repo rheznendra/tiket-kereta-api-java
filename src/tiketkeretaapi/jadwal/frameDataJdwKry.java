@@ -203,7 +203,6 @@ public class frameDataJdwKry extends javax.swing.JInternalFrame {
 			}
 			sql = sql + " J.HARI = '" + hari + "'";
 		}
-		System.out.println(sql);
 		getDataJadwal(sql);
 	}
 
