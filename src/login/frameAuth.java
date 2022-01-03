@@ -65,7 +65,6 @@ public class frameAuth extends javax.swing.JFrame {
         });
 
         tfUsername.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        tfUsername.setText("123");
         tfUsername.setPreferredSize(new java.awt.Dimension(75, 50));
 
         lbUsername.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
@@ -75,8 +74,6 @@ public class frameAuth extends javax.swing.JFrame {
         lbPassword.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         lbPassword.setForeground(new java.awt.Color(0, 0, 0));
         lbPassword.setText("Password");
-
-        tfPassword.setText("123");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

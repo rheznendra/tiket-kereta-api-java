@@ -397,9 +397,13 @@ public class frameInputJdw extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btSubmitMouseClicked
 
 	private void checkKereta(String kereta, String asal, String tujuan, int hari, String brkt, String tiba) {
-		String kode = dataJdw.get(0).toString();
-		String sql = "SELECT * FROM JADWAL WHERE KODE_KERETA = '%s' AND KODE_ASAL = '%s' AND KODE_TUJUAN = '%s' AND HARI = %s AND KODE_JADWAL != '%s'";
-		sql = String.format(sql, kereta, asal, tujuan, hari, kode);
+
+		String sql = "SELECT * FROM JADWAL WHERE KODE_KERETA = '%s' AND KODE_ASAL = '%s' AND KODE_TUJUAN = '%s' AND HARI = %s";
+		if (dataJdw != null) {
+			String kode = dataJdw.get(0).toString();
+			sql = sql + "AND KODE_JADWAL != '" + kode + "'";
+		}
+		sql = String.format(sql, kereta, asal, tujuan, hari);
 		try {
 			cmd = koneksi.conn.createStatement();
 			res = cmd.executeQuery(sql);

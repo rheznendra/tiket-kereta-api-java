@@ -1,5 +1,6 @@
 package tiketkeretaapi;
 
+import dashboard.frameDsbAdmin;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,14 @@ public class adminFrame extends javax.swing.JFrame {
 	public adminFrame(Session session) {
 		initComponents();
 		sess = session;
+		try {
+			frameDsbAdmin dashboard = new frameDsbAdmin(jDesktopPane, sess);
+			jDesktopPane.add(dashboard);
+			dashboard.setMaximum(true);
+			dashboard.setVisible(true);
+		} catch (PropertyVetoException ex) {
+			Logger.getLogger(adminFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -67,7 +76,12 @@ public class adminFrame extends javax.swing.JFrame {
         sbTitle.setText("Tiket Kereta Api");
 
         sbMenuDashboard.setBackground(new java.awt.Color(0, 173, 181));
-        sbMenuDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        sbMenuDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sbMenuDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sbMenuDashboardMouseClicked(evt);
+            }
+        });
 
         icHome.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         icHome.setForeground(new java.awt.Color(238, 238, 238));
@@ -440,11 +454,22 @@ public class adminFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sbTransaksiActionPerformed
 
     private void sbMenuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sbMenuLogoutMouseClicked
-        sess.setKodeKaryawan(null);
-        sess.setLevel(null);
-        this.dispose();
-        new frameAuth().setVisible(true);
+		sess.setKodeKaryawan(null);
+		sess.setLevel(null);
+		this.dispose();
+		new frameAuth().setVisible(true);
     }//GEN-LAST:event_sbMenuLogoutMouseClicked
+
+    private void sbMenuDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sbMenuDashboardMouseClicked
+		try {
+			frameDsbAdmin dashboard = new frameDsbAdmin(jDesktopPane, sess);
+			jDesktopPane.add(dashboard);
+			dashboard.setMaximum(true);
+			dashboard.setVisible(true);
+		} catch (PropertyVetoException ex) {
+			Logger.getLogger(adminFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
+    }//GEN-LAST:event_sbMenuDashboardMouseClicked
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
