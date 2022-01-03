@@ -173,7 +173,7 @@ public class frameDataJdwKry extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbHariItemStateChanged
 
 	private void changeJadwalByItem() {
-		String asal = null, sql = null;
+		String asal = null, sql = query;
 		if (cbAsal.getSelectedIndex() >= 1) {
 			asal = extractKode(cbAsal.getSelectedItem().toString(), 3);
 		}
@@ -186,7 +186,7 @@ public class frameDataJdwKry extends javax.swing.JInternalFrame {
 			hari = cbHari.getSelectedIndex();
 		}
 		if (asal != null || tujuan != null || hari >= 1) {
-			sql = query + " WHERE";
+			sql = sql + " WHERE";
 		}
 		if (asal != null) {
 			sql = sql + " J.KODE_ASAL = '" + asal + "'";
@@ -203,6 +203,7 @@ public class frameDataJdwKry extends javax.swing.JInternalFrame {
 			}
 			sql = sql + " J.HARI = '" + hari + "'";
 		}
+		System.out.println(sql);
 		getDataJadwal(sql);
 	}
 
