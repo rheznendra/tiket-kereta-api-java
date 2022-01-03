@@ -38,7 +38,6 @@ public class frameDataKry extends javax.swing.JInternalFrame {
         btnAddData = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbKaryawan = new javax.swing.JTable();
-        btnPrint = new javax.swing.JButton();
 
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -106,20 +105,6 @@ public class frameDataKry extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbKaryawan);
 
-        btnPrint.setBackground(new java.awt.Color(57, 62, 70));
-        btnPrint.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
-        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_print_16px.png"))); // NOI18N
-        btnPrint.setText("Print");
-        btnPrint.setBorderPainted(false);
-        btnPrint.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnPrint.setPreferredSize(new java.awt.Dimension(132, 25));
-        btnPrint.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPrintMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -127,10 +112,7 @@ public class frameDataKry extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAddData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 637, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50))
         );
@@ -138,9 +120,7 @@ public class frameDataKry extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnAddData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                 .addGap(20, 20, 20))
@@ -187,16 +167,6 @@ public class frameDataKry extends javax.swing.JInternalFrame {
 		}
     }//GEN-LAST:event_tbKaryawanMouseClicked
 
-    private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
-//		try {
-//			File namaFile = new File(file);
-//			JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), null, koneksi.conn);
-//			JasperViewer.viewReport(jp);
-//		} catch (JRException ex) {
-//			Logger.getLogger(frameDataKry.class.getName()).log(Level.SEVERE, null, ex);
-//		}
-    }//GEN-LAST:event_btnPrintMouseClicked
-
 	private void getDataKaryawan() {
 		String kode, username, nama, alamat;
 		int i = 0;
@@ -231,7 +201,6 @@ public class frameDataKry extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddData;
-    private javax.swing.JButton btnPrint;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbKaryawan;
