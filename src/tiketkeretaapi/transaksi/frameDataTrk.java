@@ -1,8 +1,11 @@
 package tiketkeretaapi.transaksi;
 
 import java.beans.PropertyVetoException;
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
@@ -10,8 +13,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import login.Session;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import tiketkeretaapi.CurrencyID;
 import tiketkeretaapi.Koneksi;
+import tiketkeretaapi.karyawan.frameDataKry;
 
 /**
  *
@@ -187,18 +195,22 @@ public class frameDataTrk extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbTransaksiMouseClicked
 
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
-//		Map param = new HashMap<>();
-//		if (sess.getLevel().equals("karyawan")) {
-//			param.put("kodeKry", sess.getKodeKaryawan());
-//			try {
-//				File namaFile = new File("src/report/reportTrkKaryawan.jasper");
-//				JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), param, koneksi.conn);
-//				JasperViewer jpv = new JasperViewer(jp, false);
-//				jpv.setVisible(true);
-//			} catch (JRException ex) {
-//				Logger.getLogger(frameDataKry.class.getName()).log(Level.SEVERE, null, ex);
-//			}
-//		}
+		Map param = new HashMap<>();
+		String file = null;
+		if (sess.getLevel().equalsIgnoreCase("admin")) {
+			file = "src/report/reportTrkAdmin.jasper";
+		} else {
+			param.put("kodeKry", sess.getKodeKaryawan());
+			file = "src/report/reportTrk.jasper";
+		}
+		try {
+			File namaFile = new File(file);
+			JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), param, koneksi.conn);
+			JasperViewer jpv = new JasperViewer(jp, false);
+			jpv.setVisible(true);
+		} catch (JRException ex) {
+			Logger.getLogger(frameDataKry.class.getName()).log(Level.SEVERE, null, ex);
+		}
     }//GEN-LAST:event_btnPrintMouseClicked
 
 	private void getDataKaryawan() {
