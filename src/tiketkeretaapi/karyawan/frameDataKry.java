@@ -1,7 +1,6 @@
 package tiketkeretaapi.karyawan;
 
 import java.beans.PropertyVetoException;
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -10,10 +9,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 import tiketkeretaapi.Koneksi;
 
 /**
@@ -26,7 +21,6 @@ public class frameDataKry extends javax.swing.JInternalFrame {
 	Koneksi koneksi = new Koneksi();
 	Statement cmd;
 	ResultSet res;
-
 	JDesktopPane mainPanel;
 
 	public frameDataKry(JDesktopPane panel) {
@@ -194,13 +188,13 @@ public class frameDataKry extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbKaryawanMouseClicked
 
     private void btnPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseClicked
-		try {
-			File namaFile = new File("src/report/reportKaryawan.jasper");
-			JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), null, koneksi.conn);
-			JasperViewer.viewReport(jp);
-		} catch (JRException ex) {
-			Logger.getLogger(frameDataKry.class.getName()).log(Level.SEVERE, null, ex);
-		}
+//		try {
+//			File namaFile = new File(file);
+//			JasperPrint jp = JasperFillManager.fillReport(namaFile.getPath(), null, koneksi.conn);
+//			JasperViewer.viewReport(jp);
+//		} catch (JRException ex) {
+//			Logger.getLogger(frameDataKry.class.getName()).log(Level.SEVERE, null, ex);
+//		}
     }//GEN-LAST:event_btnPrintMouseClicked
 
 	private void getDataKaryawan() {

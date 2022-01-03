@@ -11,7 +11,7 @@
 	t.KODE_TRK,
 	t.JUMLAH_PENUMPANG,
 	TO_CHAR(t.TGL_BERANGKAT, 'dd-mm-yyyy') AS TGL_BERANGKAT,
-	TO_CHAR(t.TGL_WAKTU_TRK, 'dd-mm-yyyy HH:mm') AS TGL_WAKTU_TRK,
+	TO_CHAR(t.TGL_WAKTU_TRK, 'dd-mm-yyyy HH24:mm') AS TGL_WAKTU_TRK,
 	t.TOTAL
 FROM TRANSAKSI t
 WHERE KODE_KARYAWAN = $P{kodeKry}]]>
@@ -59,7 +59,7 @@ WHERE KODE_KARYAWAN = $P{kodeKry}]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[JUMLAH PENUMPANG]]></text>
+				<text><![CDATA[PENUMPANG]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="158" y="0" width="156" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="e7ee8910-5155-4ad7-ab7c-1c9d7df4ec04"/>
@@ -85,7 +85,7 @@ WHERE KODE_KARYAWAN = $P{kodeKry}]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="176">
+		<band height="22">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="2927e857-f7d6-4ec3-b3b0-300ed273d1b7"/>
 			</line>
@@ -110,9 +110,9 @@ WHERE KODE_KARYAWAN = $P{kodeKry}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TGL_BERANGKAT}]]></textFieldExpression>
 			</textField>
-			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+			<textField isStretchWithOverflow="true" pattern="Rp #,##0" isBlankWhenNull="false">
 				<reportElement x="474" y="0" width="79" height="20" uuid="0e8bf0df-0f24-41de-9a20-8dfdc1e054fe"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TOTAL}]]></textFieldExpression>
