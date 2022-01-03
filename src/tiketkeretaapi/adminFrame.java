@@ -443,7 +443,7 @@ public class adminFrame extends javax.swing.JFrame {
         sess.setKodeKaryawan(null);
         sess.setLevel(null);
         this.dispose();
-        new frameAuth(sess).setVisible(true);
+        new frameAuth().setVisible(true);
     }//GEN-LAST:event_sbMenuLogoutMouseClicked
 
 	public static void main(String args[]) {

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
+import login.Session;
 
 /**
  *
@@ -18,12 +19,16 @@ public class frameInputDetailTrk extends javax.swing.JInternalFrame {
 	ArrayList<DataTransaksi> dataTrk;
 	ArrayList<DataDetailTransaksi> dataPnp;
 	boolean anyError;
+	Session sess;
+	int index;
 
-	public frameInputDetailTrk(JDesktopPane panel, ArrayList<DataTransaksi> data, ArrayList<DataDetailTransaksi> penumpang) {
+	public frameInputDetailTrk(JDesktopPane panel, Session session, ArrayList<DataTransaksi> data, ArrayList<DataDetailTransaksi> penumpang, int idx) {
 		initComponents();
 		mainPanel = panel;
 		dataTrk = data;
 		dataPnp = penumpang;
+		sess = session;
+		index = idx;
 		((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 	}
@@ -44,8 +49,26 @@ public class frameInputDetailTrk extends javax.swing.JInternalFrame {
         lbNoKtp = new javax.swing.JLabel();
         lbNoHp = new javax.swing.JLabel();
         tfNoHp = new javax.swing.JTextField();
+        btDelete = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(732, 402));
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
@@ -104,6 +127,17 @@ public class frameInputDetailTrk extends javax.swing.JInternalFrame {
 
         tfNoHp.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
 
+        btDelete.setBackground(new java.awt.Color(57, 62, 70));
+        btDelete.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        btDelete.setForeground(new java.awt.Color(238, 238, 238));
+        btDelete.setText("Hapus");
+        btDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -112,7 +146,10 @@ public class frameInputDetailTrk extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +197,9 @@ public class frameInputDetailTrk extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfNoHp, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(39, 39, 39)
-                .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(132, 132, 132))
         );
 
@@ -175,7 +214,7 @@ public class frameInputDetailTrk extends javax.swing.JInternalFrame {
 
 	private void redirBack() {
 		try {
-			frameDataDetailTrk dataDetailTrk = new frameDataDetailTrk(mainPanel, dataTrk, dataPnp);
+			frameDataDetailTrk dataDetailTrk = new frameDataDetailTrk(mainPanel, sess, dataTrk, dataPnp);
 			this.dispose();
 			mainPanel.add(dataDetailTrk);
 			dataDetailTrk.setMaximum(true);
@@ -201,17 +240,44 @@ public class frameInputDetailTrk extends javax.swing.JInternalFrame {
 //		if (!anyError) {
 //			checkNoHp();
 //		}
-
 		if (!anyError) {
 			String ktp = tfNoKtp.getText().strip();
 			String nama = tfNama.getText().strip();
 			String alamat = tfAlamat.getText().strip();
 			String nohp = tfNoHp.getText().strip();
-			dataPnp.add(new DataDetailTransaksi(ktp, nama, alamat, nohp));
-			showAlert("Sukses!", "Data penumpang berhasil ditambahkan.", "info");
+			if (index <= 0) {
+				dataPnp.add(new DataDetailTransaksi(ktp, nama, alamat, nohp));
+				showAlert("Sukses!", "Data penumpang berhasil ditambahkan.", "info");
+			} else {
+				dataPnp.set(index - 1, new DataDetailTransaksi(ktp, nama, alamat, nohp));
+				showAlert("Sukses!", "Data penumpang berhasil diubah.", "info");
+			}
 			redirBack();
 		}
     }//GEN-LAST:event_btSubmitActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+		if (index >= 1) {
+			tfNoKtp.setText(dataPnp.get(index - 1).getKtp());
+			tfNama.setText(dataPnp.get(index - 1).getNama());
+			tfAlamat.setText(dataPnp.get(index - 1).getAlamat());
+			tfNoHp.setText(dataPnp.get(index - 1).getNohp());
+			btSubmit.setText("Ubah");
+			btDelete.setVisible(true);
+		} else {
+			btDelete.setVisible(false);
+		}
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
+
+		int response = JOptionPane.showConfirmDialog(null, "Apakah anda yakin?", "Hapus Data", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+		if (response == JOptionPane.YES_OPTION) {
+			dataPnp.remove(index - 1);
+			redirBack();
+		}
+    }//GEN-LAST:event_btDeleteActionPerformed
 
 	private void checkBlankForm() {
 		if (tfNoKtp.getText().isBlank() || tfNama.getText().isBlank() || tfAlamat.getText().isBlank() || tfNoHp.getText().isBlank()) {
@@ -227,9 +293,9 @@ public class frameInputDetailTrk extends javax.swing.JInternalFrame {
 			showAlert("Gagal!", "Format Nomor KTP tidak valid.", "err");
 		}
 
-		if(!anyError && dataPnp.size() >= 1) {
+		if (!anyError && dataPnp.size() >= 1) {
 			for (int i = 0; i < dataPnp.size(); i++) {
-				if(tfNoKtp.getText().strip().equalsIgnoreCase(dataPnp.get(i).getKtp())) {
+				if (tfNoKtp.getText().strip().equalsIgnoreCase(dataPnp.get(i).getKtp()) && i != index - 1) {
 					anyError = true;
 					showAlert("Gagal!", "Nomor KTP telah terdaftar.", "err");
 					break;
@@ -264,6 +330,7 @@ public class frameInputDetailTrk extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btBack;
+    private javax.swing.JButton btDelete;
     private javax.swing.JButton btSubmit;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;

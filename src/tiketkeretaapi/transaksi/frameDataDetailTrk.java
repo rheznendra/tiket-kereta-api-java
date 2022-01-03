@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import login.Session;
 import tiketkeretaapi.Koneksi;
 import tiketkeretaapi.karyawan.frameInputKry;
 
@@ -30,12 +31,14 @@ public class frameDataDetailTrk extends javax.swing.JInternalFrame {
 	PreparedStatement ps;
 	CallableStatement cs;
 	boolean anyError;
+	Session sess;
 
-	public frameDataDetailTrk(JDesktopPane panel, ArrayList<DataTransaksi> data, ArrayList<DataDetailTransaksi> penumpang) {
+	public frameDataDetailTrk(JDesktopPane panel, Session session, ArrayList<DataTransaksi> data, ArrayList<DataDetailTransaksi> penumpang) {
 		initComponents();
 		mainPanel = panel;
 		dataTrk = data;
 		dataPnp = penumpang;
+		sess = session;
 		((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 	}
@@ -71,13 +74,13 @@ public class frameDataDetailTrk extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(238, 238, 238));
 
-        btBack.setBackground(new java.awt.Color(57, 62, 70));
-        btBack.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
-        btBack.setForeground(new java.awt.Color(255, 255, 255));
         btBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_back_arrow_16px.png"))); // NOI18N
         btBack.setText("Kembali");
+        btBack.setBackground(new java.awt.Color(57, 62, 70));
         btBack.setBorderPainted(false);
         btBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btBack.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        btBack.setForeground(new java.awt.Color(255, 255, 255));
         btBack.setPreferredSize(new java.awt.Dimension(103, 25));
         btBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,13 +127,13 @@ public class frameDataDetailTrk extends javax.swing.JInternalFrame {
             tbDetailTransaksi.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        btAdd.setBackground(new java.awt.Color(57, 62, 70));
-        btAdd.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
-        btAdd.setForeground(new java.awt.Color(255, 255, 255));
         btAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_user_account_16px_1.png"))); // NOI18N
         btAdd.setText("Tambah");
+        btAdd.setBackground(new java.awt.Color(57, 62, 70));
         btAdd.setBorderPainted(false);
         btAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btAdd.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        btAdd.setForeground(new java.awt.Color(255, 255, 255));
         btAdd.setPreferredSize(new java.awt.Dimension(103, 25));
         btAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,13 +141,13 @@ public class frameDataDetailTrk extends javax.swing.JInternalFrame {
             }
         });
 
-        btFinish.setBackground(new java.awt.Color(57, 62, 70));
-        btFinish.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
-        btFinish.setForeground(new java.awt.Color(255, 255, 255));
         btFinish.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_Check_Circle_16px.png"))); // NOI18N
         btFinish.setText("Selesai");
+        btFinish.setBackground(new java.awt.Color(57, 62, 70));
         btFinish.setBorderPainted(false);
         btFinish.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btFinish.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        btFinish.setForeground(new java.awt.Color(255, 255, 255));
         btFinish.setPreferredSize(new java.awt.Dimension(103, 25));
         btFinish.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,7 +204,7 @@ public class frameDataDetailTrk extends javax.swing.JInternalFrame {
 
     private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
 		try {
-			frameInputTrk addTrk = new frameInputTrk(mainPanel, dataTrk, dataPnp);
+			frameInputTrk addTrk = new frameInputTrk(mainPanel, sess, dataTrk, dataPnp);
 			this.dispose();
 			mainPanel.add(addTrk);
 			addTrk.setVisible(true);
@@ -211,12 +214,9 @@ public class frameDataDetailTrk extends javax.swing.JInternalFrame {
 		}
     }//GEN-LAST:event_btBackActionPerformed
 
-    private void tbDetailTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetailTransaksiMouseClicked
-    }//GEN-LAST:event_tbDetailTransaksiMouseClicked
-
     private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
 		try {
-			frameInputDetailTrk addDetailTrk = new frameInputDetailTrk(mainPanel, dataTrk, dataPnp);
+			frameInputDetailTrk addDetailTrk = new frameInputDetailTrk(mainPanel, sess, dataTrk, dataPnp, 0);
 			this.dispose();
 			mainPanel.add(addDetailTrk);
 			addDetailTrk.setVisible(true);
@@ -239,7 +239,7 @@ public class frameDataDetailTrk extends javax.swing.JInternalFrame {
 				if (!anyError) {
 					showAlert("Sukses!", "Tiket berhasil dipesan.", "info");
 					try {
-						frameDataTrk dataTrk = new frameDataTrk(mainPanel, null);
+						frameDataTrk dataTrk = new frameDataTrk(mainPanel, sess);
 						this.dispose();
 						mainPanel.add(dataTrk);
 						dataTrk.setVisible(true);
@@ -255,10 +255,26 @@ public class frameDataDetailTrk extends javax.swing.JInternalFrame {
 		}
     }//GEN-LAST:event_btFinishActionPerformed
 
+    private void tbDetailTransaksiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbDetailTransaksiMouseClicked
+		int index = tbDetailTransaksi.rowAtPoint(evt.getPoint()) + 1;
+		if (evt.getClickCount() == 2) {
+			try {
+				frameInputDetailTrk addInputDetailTrk = new frameInputDetailTrk(mainPanel, sess, dataTrk, dataPnp, index);
+				this.dispose();
+				mainPanel.add(addInputDetailTrk);
+				addInputDetailTrk.setVisible(true);
+				addInputDetailTrk.setMaximum(true);
+			} catch (PropertyVetoException ex) {
+				Logger.getLogger(frameDataDetailTrk.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+    }//GEN-LAST:event_tbDetailTransaksiMouseClicked
+
 	private void insertTrk() {
 		String kereta = dataTrk.get(0).getKereta();
 		int jmlPenumpang = dataTrk.get(0).getJmlPenumpang();
 		String tanggal = dataTrk.get(0).getTanggal();
+		String karyawan = sess.getKodeKaryawan();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-mm-yyyy");
 		java.sql.Date tgl = null;
@@ -278,7 +294,7 @@ public class frameDataDetailTrk extends javax.swing.JInternalFrame {
 
 			ps = koneksi.conn.prepareStatement(sql, generatedColumn);
 			ps.setString(1, kereta);
-			ps.setString(2, null);
+			ps.setString(2, karyawan);
 			ps.setInt(3, jmlPenumpang);
 			ps.setDate(4, tgl);
 			ps.executeUpdate();

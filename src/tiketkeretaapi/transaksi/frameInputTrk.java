@@ -22,6 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
+import login.Session;
 import tiketkeretaapi.CurrencyID;
 import tiketkeretaapi.Koneksi;
 
@@ -36,17 +37,19 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
 	Statement cmd;
 	ResultSet res;
 	boolean anyError;
+	Session sess;
 	Vector<CbxKereta> vectorKrt = new Vector<>();
 	ArrayList<DataTransaksi> dataTrk = new ArrayList<>();
 	ArrayList<DataDetailTransaksi> dataPnp = new ArrayList<>();
 
-	public frameInputTrk(JDesktopPane panel, ArrayList<DataTransaksi> data, ArrayList<DataDetailTransaksi> penumpang) {
+	public frameInputTrk(JDesktopPane panel, Session session, ArrayList<DataTransaksi> data, ArrayList<DataDetailTransaksi> penumpang) {
 		initComponents();
 		mainPanel = panel;
 		if (data != null) {
 			dataTrk = data;
 			dataPnp = penumpang;
 		}
+		sess = session;
 		((javax.swing.plaf.basic.BasicInternalFrameUI) this.getUI()).setNorthPane(null);
 		setBorder(new EmptyBorder(0, 0, 0, 0));
 	}
@@ -339,7 +342,7 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
 			}
 
 			try {
-				frameDataDetailTrk detailTrk = new frameDataDetailTrk(mainPanel, dataTrk, dataPnp);
+				frameDataDetailTrk detailTrk = new frameDataDetailTrk(mainPanel, sess, dataTrk, dataPnp);
 				this.dispose();
 				mainPanel.add(detailTrk);
 				detailTrk.setMaximum(true);

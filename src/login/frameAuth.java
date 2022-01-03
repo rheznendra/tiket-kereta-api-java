@@ -20,15 +20,14 @@ public class frameAuth extends javax.swing.JFrame {
 	Koneksi koneksi = new Koneksi();
 	Statement cmd;
 	ResultSet res;
-	Session sess;
+	Session sess = new Session();
 
 	/**
 	 * Creates new form frameAuth
 	 *
 	 * @param session
 	 */
-	public frameAuth(Session session) {
-		sess = session;
+	public frameAuth() {
 		initComponents();
 	}
 
@@ -66,7 +65,7 @@ public class frameAuth extends javax.swing.JFrame {
         });
 
         tfUsername.setFont(new java.awt.Font("Montserrat", 0, 12)); // NOI18N
-        tfUsername.setText("admin");
+        tfUsername.setText("123");
         tfUsername.setPreferredSize(new java.awt.Dimension(75, 50));
 
         lbUsername.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
@@ -77,7 +76,7 @@ public class frameAuth extends javax.swing.JFrame {
         lbPassword.setForeground(new java.awt.Color(0, 0, 0));
         lbPassword.setText("Password");
 
-        tfPassword.setText("admin");
+        tfPassword.setText("123");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -214,7 +213,7 @@ public class frameAuth extends javax.swing.JFrame {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new frameAuth(null).setVisible(true);
+				new frameAuth().setVisible(true);
 			}
 		});
 	}

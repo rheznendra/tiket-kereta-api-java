@@ -1,5 +1,6 @@
 package tiketkeretaapi;
 
+import dashboard.frameDsbKry;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,8 +19,15 @@ public class mainFrame extends javax.swing.JFrame {
 
 	public mainFrame(Session session) {
 		initComponents();
-		if (sess.getKodeKaryawan() != null) {
-			karyawanName.setText(sess.getNamaKaryawan());
+		sess = session;
+		karyawanName.setText(session.getNamaKaryawan());
+		try {
+			frameDsbKry dashboard = new frameDsbKry(jDesktopPane, sess);
+			jDesktopPane.add(dashboard);
+			dashboard.setMaximum(true);
+			dashboard.setVisible(true);
+		} catch (PropertyVetoException ex) {
+			Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
@@ -54,7 +62,12 @@ public class mainFrame extends javax.swing.JFrame {
         sbTitle.setText("Tiket Kereta Api");
 
         sbMenuDashboard.setBackground(new java.awt.Color(0, 173, 181));
-        sbMenuDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        sbMenuDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sbMenuDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sbMenuDashboardMouseClicked(evt);
+            }
+        });
 
         icHome.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
         icHome.setForeground(new java.awt.Color(238, 238, 238));
@@ -259,8 +272,19 @@ public class mainFrame extends javax.swing.JFrame {
 		sess.setKodeKaryawan(null);
 		sess.setLevel(null);
 		this.dispose();
-		new frameAuth(sess).setVisible(true);
+		new frameAuth().setVisible(true);
     }//GEN-LAST:event_sbMenuLogoutMouseClicked
+
+    private void sbMenuDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sbMenuDashboardMouseClicked
+		try {
+			frameDsbKry dashboard = new frameDsbKry(jDesktopPane, sess);
+			jDesktopPane.add(dashboard);
+			dashboard.setMaximum(true);
+			dashboard.setVisible(true);
+		} catch (PropertyVetoException ex) {
+			Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
+    }//GEN-LAST:event_sbMenuDashboardMouseClicked
 
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
@@ -291,11 +315,7 @@ public class mainFrame extends javax.swing.JFrame {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				if (sess.getKodeKaryawan() == null) {
-					new frameAuth(sess).setVisible(true);
-				} else {
-					new mainFrame(sess).setVisible(true);
-				}
+				new mainFrame(sess).setVisible(true);
 			}
 		});
 	}
