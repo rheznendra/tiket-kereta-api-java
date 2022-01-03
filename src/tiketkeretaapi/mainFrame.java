@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import login.Session;
 import login.frameAuth;
+import tiketkeretaapi.jadwal.frameDataJdwKry;
 import tiketkeretaapi.transaksi.frameDataTrk;
 
 /**
@@ -40,6 +41,9 @@ public class mainFrame extends javax.swing.JFrame {
         sbMenuDashboard = new javax.swing.JPanel();
         icHome = new javax.swing.JLabel();
         sbDashboard = new javax.swing.JButton();
+        sbMenuJadwal = new javax.swing.JPanel();
+        icJadwal = new javax.swing.JLabel();
+        sbJadwal = new javax.swing.JButton();
         sbMenuTransaksi = new javax.swing.JPanel();
         icTransaksi = new javax.swing.JLabel();
         sbTransaksi = new javax.swing.JButton();
@@ -104,6 +108,47 @@ public class mainFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        sbMenuJadwal.setBackground(new java.awt.Color(0, 173, 181));
+        sbMenuJadwal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sbMenuJadwal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sbMenuJadwalMouseClicked(evt);
+            }
+        });
+
+        icJadwal.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        icJadwal.setForeground(new java.awt.Color(238, 238, 238));
+        icJadwal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_schedule_16px_1.png"))); // NOI18N
+
+        sbJadwal.setBackground(new java.awt.Color(238, 238, 238));
+        sbJadwal.setFont(new java.awt.Font("Montserrat", 1, 12)); // NOI18N
+        sbJadwal.setForeground(new java.awt.Color(238, 238, 238));
+        sbJadwal.setText("Jadwal");
+        sbJadwal.setBorder(null);
+        sbJadwal.setBorderPainted(false);
+        sbJadwal.setContentAreaFilled(false);
+
+        javax.swing.GroupLayout sbMenuJadwalLayout = new javax.swing.GroupLayout(sbMenuJadwal);
+        sbMenuJadwal.setLayout(sbMenuJadwalLayout);
+        sbMenuJadwalLayout.setHorizontalGroup(
+            sbMenuJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sbMenuJadwalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(icJadwal)
+                .addGap(18, 18, 18)
+                .addComponent(sbJadwal)
+                .addGap(0, 0, 0))
+        );
+        sbMenuJadwalLayout.setVerticalGroup(
+            sbMenuJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sbMenuJadwalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(sbMenuJadwalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(sbJadwal)
+                    .addComponent(icJadwal))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         sbMenuTransaksi.setBackground(new java.awt.Color(0, 173, 181));
         sbMenuTransaksi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sbMenuTransaksi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,7 +187,7 @@ public class mainFrame extends javax.swing.JFrame {
                 .addGroup(sbMenuTransaksiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(sbTransaksi)
                     .addComponent(icTransaksi))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(8, 8, 8))
         );
 
         sbMenuLogout.setBackground(new java.awt.Color(0, 173, 181));
@@ -183,7 +228,7 @@ public class mainFrame extends javax.swing.JFrame {
                 .addGroup(sbMenuLogoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(sbLogout)
                     .addComponent(icLogout))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addGap(8, 8, 8))
         );
 
         javax.swing.GroupLayout sideBarLayout = new javax.swing.GroupLayout(sideBar);
@@ -197,6 +242,7 @@ public class mainFrame extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
             .addComponent(sbMenuTransaksi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(sbMenuLogout, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(sbMenuJadwal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         sideBarLayout.setVerticalGroup(
             sideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,6 +251,8 @@ public class mainFrame extends javax.swing.JFrame {
                 .addComponent(sbTitle)
                 .addGap(25, 25, 25)
                 .addComponent(sbMenuDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sbMenuJadwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sbMenuTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -286,6 +334,17 @@ public class mainFrame extends javax.swing.JFrame {
 		}
     }//GEN-LAST:event_sbMenuDashboardMouseClicked
 
+    private void sbMenuJadwalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sbMenuJadwalMouseClicked
+		try {
+			frameDataJdwKry jadwal = new frameDataJdwKry(jDesktopPane);
+			jDesktopPane.add(jadwal);
+			jadwal.setMaximum(true);
+			jadwal.setVisible(true);
+		} catch (PropertyVetoException ex) {
+			Logger.getLogger(mainFrame.class.getName()).log(Level.SEVERE, null, ex);
+		}
+    }//GEN-LAST:event_sbMenuJadwalMouseClicked
+
 	public static void main(String args[]) {
 		/* Set the Nimbus look and feel */
 		//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -323,13 +382,16 @@ public class mainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel header;
     private javax.swing.JLabel icHome;
+    private javax.swing.JLabel icJadwal;
     private javax.swing.JLabel icLogout;
     private javax.swing.JLabel icTransaksi;
     private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JLabel karyawanName;
     private javax.swing.JButton sbDashboard;
+    private javax.swing.JButton sbJadwal;
     private javax.swing.JButton sbLogout;
     private javax.swing.JPanel sbMenuDashboard;
+    private javax.swing.JPanel sbMenuJadwal;
     private javax.swing.JPanel sbMenuLogout;
     private javax.swing.JPanel sbMenuTransaksi;
     private javax.swing.JLabel sbTitle;

@@ -215,7 +215,7 @@ public class frameDataKry extends javax.swing.JInternalFrame {
 				}
 			};
 			cmd = koneksi.conn.createStatement();
-			res = cmd.executeQuery("SELECT * FROM KARYAWAN");
+			res = cmd.executeQuery("SELECT * FROM KARYAWAN WHERE ROLE != 'ADMIN'");
 
 			while (res.next()) {
 				i++;
