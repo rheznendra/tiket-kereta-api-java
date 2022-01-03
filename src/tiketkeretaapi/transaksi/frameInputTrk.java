@@ -499,16 +499,16 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
 		String query = "SELECT j.KODE_JADWAL, j.JAM_BERANGKAT, j.JAM_TIBA, k.NAMA_KERETA FROM JADWAL j INNER JOIN KERETA k ON j.KODE_KERETA = k.KODE_KERETA WHERE j.KODE_ASAL = '%s' AND j.KODE_TUJUAN = '%s' AND j.HARI = %s ORDER BY 2 ASC";
 		query = String.format(query, asal, tujuan, hari);
 
-		vectorKrt.removeAllElements();
-		vectorKrt.addElement(new CbxKereta("", "------------------PILIH------------------"));
-
 		try {
 			cmd = koneksi.conn.createStatement();
 			res = cmd.executeQuery(query);
 			if (res.next() == false) {
 				showAlert("Pencarian Gagal!", "Ditemukan 0 kereta sesuai asal-tujuan dan hari.", "err");
+				resetCbKereta();
 			} else {
 				cbKereta.removeAllItems();
+				vectorKrt.removeAllElements();
+				vectorKrt.addElement(new CbxKereta("", "------------------PILIH------------------"));
 				do {
 					String kode = res.getString("KODE_JADWAL");
 					String brkt = res.getString("JAM_BERANGKAT");
