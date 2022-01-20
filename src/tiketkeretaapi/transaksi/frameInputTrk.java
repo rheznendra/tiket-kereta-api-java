@@ -300,7 +300,7 @@ public class frameInputTrk extends javax.swing.JInternalFrame {
 
     private void btBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBackActionPerformed
 		try {
-			frameDataTrk dataTrk = new frameDataTrk(mainPanel, null);
+			frameDataTrk dataTrk = new frameDataTrk(mainPanel, sess);
 			this.dispose();
 			mainPanel.add(dataTrk);
 			dataTrk.setMaximum(true);
